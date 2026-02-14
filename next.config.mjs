@@ -1,11 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
+  basePath: '/karimgaber',
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true, // GitHub Pages doesn't support the Next.js image optimization server
+    unoptimized: true,
   },
 };
 
