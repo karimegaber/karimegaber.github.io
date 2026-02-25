@@ -1,8 +1,4 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-
-const postsDirectory = path.join(process.cwd(), 'content/blogs');
+import { supabase } from './supabase';
 
 export type BlogPost = {
   slug: string;
@@ -14,60 +10,65 @@ export type BlogPost = {
   content: string;
 };
 
-export function getBlogPosts(): BlogPost[] {
-  if (!fs.existsSync(postsDirectory)) {
+export async function getBlogPosts(): Promise<BlogPost[]> {
+  const { data: posts, error } = await supabase
+    .from('posts')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('Error fetching posts:', error);
     return [];
   }
 
-  const fileNames = fs.readdirSync(postsDirectory);
-  const allPostsData = fileNames.map((fileName) => {
-    const slug = fileName.replace(/\.mdx$/, '');
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const { data, content } = matter(fileContents);
+  if (!posts) {
+    return [];
+  }
 
-    const readingTime = Math.ceil(content.split(/\s+/).length / 200) + ' min read';
+  return posts.map((post) => {
+    const readingTime = Math.ceil(post.content.split(/\s+/).length / 200) + ' min read';
+
+    // Format date from timestamp
+    const date = new Date(post.created_at).toISOString().split('T')[0];
 
     return {
-      slug,
-      title: data.title,
-      date: data.date,
-      excerpt: data.excerpt,
-      tags: data.tags,
+      slug: post.slug,
+      title: post.title,
+      date: date,
+      excerpt: post.excerpt,
+      tags: post.tags,
       readingTime,
-      content,
+      content: post.content,
     };
-  });
-
-  return allPostsData.sort((a, b) => {
-    if (a.date < b.date) {
-      return 1;
-    } else {
-      return -1;
-    }
   });
 }
 
-export function getBlogPostBySlug(slug: string): BlogPost | null {
-  try {
-    const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-    if (!fs.existsSync(fullPath)) {
-      return null;
-    }
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const { data, content } = matter(fileContents);
-    const readingTime = Math.ceil(content.split(/\s+/).length / 200) + ' min read';
+export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+  const { data: post, error } = await supabase
+    .from('posts')
+    .select('*')
+    .eq('slug', slug)
+    .single();
 
-    return {
-      slug,
-      title: data.title,
-      date: data.date,
-      excerpt: data.excerpt,
-      tags: data.tags,
-      readingTime,
-      content,
-    };
-  } catch (error) {
+  if (error) {
+    console.error('Error fetching post:', error);
     return null;
   }
+
+  if (!post) {
+    return null;
+  }
+
+  const readingTime = Math.ceil(post.content.split(/\s+/).length / 200) + ' min read';
+  const date = new Date(post.created_at).toISOString().split('T')[0];
+
+  return {
+    slug: post.slug,
+    title: post.title,
+    date: date,
+    excerpt: post.excerpt,
+    tags: post.tags,
+    readingTime,
+    content: post.content,
+  };
 }
