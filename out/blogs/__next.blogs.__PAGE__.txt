@@ -1,0 +1,122 @@
+1:"$Sreact.fragment"
+2:I[63780,["/_next/static/chunks/357bff0bbb935ae6.js","/_next/static/chunks/dbb7e7603798a34a.js"],"Navbar"]
+3:I[13137,["/_next/static/chunks/357bff0bbb935ae6.js","/_next/static/chunks/dbb7e7603798a34a.js"],"BlogGrid"]
+a:I[76841,["/_next/static/chunks/357bff0bbb935ae6.js","/_next/static/chunks/dbb7e7603798a34a.js"],"Footer"]
+b:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+c:"$Sreact.suspense"
+4:T4d0,
+# The 60 FPS Challenge
+
+Achieving smooth 60 FPS animations on low-end Android devices is a common challenge in Flutter development. In this article, I'll share how we optimized Araby AI to achieve consistent performance.
+
+## Optimization Techniques
+
+Here are the key techniques we used:
+
+1.  **Skia Warm-up**: Pre-compiling shaders to avoid jank on the first run.
+2.  **RepaintBoundary**: Isolating complex widgets to prevent unnecessary repaints.
+3.  **ListView Builder**: Using `ListView.builder` instead of `ListView` for long lists.
+4.  **Const Keywords**: Using `const` constructors wherever possible to reduce garbage collection.
+
+## High-Performance ListView
+
+Here is an example of a high-performance `ListView` implementation in Dart:
+
+```dart
+import 'package:flutter/material.dart';
+
+class OptimizedListView extends StatelessWidget {
+  final List<String> items;
+
+  const OptimizedListView({super.key, required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return RepaintBoundary(
+          child: ListTile(
+            title: Text(items[index]),
+          ),
+        );
+      },
+    );
+  }
+}
+```
+5:T84d,
+# Real-time AI Chat Implementation
+
+When building AI-powered mobile apps, one of the biggest challenges is handling long response times. Streaming responses is crucial for a good user experience.
+
+## WebSockets vs HTTP for AI Streaming
+
+We evaluated both WebSockets and HTTP streaming (Server-Sent Events) for our AI integration.
+
+| Feature | WebSockets | HTTP Streaming |
+| :--- | :--- | :--- |
+| **Latency** | Low | Low |
+| **Complexity** | High | Low |
+| **Bidirectional** | Yes | No |
+| **Firewall Issues** | Common | Rare |
+
+For most AI chat applications, HTTP streaming is sufficient and easier to implement. However, if you need bidirectional audio or complex state management, WebSockets might be a better choice.
+
+## Comparison: GPT-4o vs Local Models
+
+| Model | Response Time | Accuracy | Cost |
+| :--- | :--- | :--- | :--- |
+| **GPT-4o** | ~500ms | High | High |
+| **Llama 3 (Local)** | ~100ms | Medium | Low |
+| **Mistral (Local)** | ~150ms | Medium | Low |
+
+## TypeScript Streaming Hook
+
+Here is a TypeScript hook for handling streaming responses in a React Native or Next.js app:
+
+```typescript
+import { useState, useCallback } from 'react';
+
+export function useStreamResponse() {
+  const [response, setResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const streamResponse = useCallback(async (prompt: string) => {
+    setIsLoading(true);
+    setResponse('');
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt }),
+      });
+
+      if (!res.body) throw new Error('No response body');
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value);
+        setResponse((prev) => prev + chunk);
+      }
+    } catch (error) {
+      console.error('Streaming error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  return { response, isLoading, streamResponse };
+}
+```
+0:{"buildId":"ssLSovDnhV3yyL_oGz55y","rsc":["$","$1","c",{"children":[["$","main",null,{"className":"relative min-h-screen bg-[#080c1a]","children":[["$","$L2",null,{}],["$","div",null,{"className":"pt-32 pb-20 px-6","children":["$","div",null,{"className":"mx-auto max-w-6xl","children":[["$","div",null,{"className":"mb-12","children":[["$","h1",null,{"className":"mb-4 text-4xl font-bold tracking-tight text-white md:text-5xl","children":[["$","span",null,{"className":"text-blue-400","children":"Technical"}]," Insights"]}],["$","p",null,{"className":"max-w-2xl text-lg text-slate-400","children":"Deep dives into software architecture, mobile development, and AI integration. Sharing lessons learned from building large-scale applications."}]]}],["$","$L3",null,{"posts":[{"slug":"optimizing-flutter-performance","title":"Mastering Flutter Performance: How I Boosted Ratings to 4.0 Stars","date":"2026-02-25","excerpt":"Deep dive into the architectural changes and rendering optimizations that scaled Araby AI.","tags":["Flutter","Performance","Architecture"],"readingTime":"1 min read","content":"$4"},{"slug":"ai-integration-mobile","title":"Building Responsive AI Ecosystems","date":"2026-02-20","excerpt":"Exploring real-time AI chat implementation and streaming responses in mobile apps.","tags":["AI","Next.js","Mobile"],"readingTime":"2 min read","content":"$5"}]}]]}]}],"$L6"]}],["$L7","$L8"],"$L9"]}],"loading":null,"isPartial":false}
+6:["$","$La",null,{}]
+7:["$","script","script-0",{"src":"/_next/static/chunks/357bff0bbb935ae6.js","async":true}]
+8:["$","script","script-1",{"src":"/_next/static/chunks/dbb7e7603798a34a.js","async":true}]
+9:["$","$Lb",null,{"children":["$","$c",null,{"name":"Next.MetadataOutlet","children":"$@d"}]}]
+d:null
