@@ -1,0 +1,75 @@
+---
+title: "Building Responsive AI Ecosystems"
+date: "2026-02-20"
+excerpt: "Exploring real-time AI chat implementation and streaming responses in mobile apps."
+tags: ["AI", "Next.js", "Mobile"]
+---
+
+# Real-time AI Chat Implementation
+
+When building AI-powered mobile apps, one of the biggest challenges is handling long response times. Streaming responses is crucial for a good user experience.
+
+## WebSockets vs HTTP for AI Streaming
+
+We evaluated both WebSockets and HTTP streaming (Server-Sent Events) for our AI integration.
+
+| Feature | WebSockets | HTTP Streaming |
+| :--- | :--- | :--- |
+| **Latency** | Low | Low |
+| **Complexity** | High | Low |
+| **Bidirectional** | Yes | No |
+| **Firewall Issues** | Common | Rare |
+
+For most AI chat applications, HTTP streaming is sufficient and easier to implement. However, if you need bidirectional audio or complex state management, WebSockets might be a better choice.
+
+## Comparison: GPT-4o vs Local Models
+
+| Model | Response Time | Accuracy | Cost |
+| :--- | :--- | :--- | :--- |
+| **GPT-4o** | ~500ms | High | High |
+| **Llama 3 (Local)** | ~100ms | Medium | Low |
+| **Mistral (Local)** | ~150ms | Medium | Low |
+
+## TypeScript Streaming Hook
+
+Here is a TypeScript hook for handling streaming responses in a React Native or Next.js app:
+
+```typescript
+import { useState, useCallback } from 'react';
+
+export function useStreamResponse() {
+  const [response, setResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const streamResponse = useCallback(async (prompt: string) => {
+    setIsLoading(true);
+    setResponse('');
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt }),
+      });
+
+      if (!res.body) throw new Error('No response body');
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value);
+        setResponse((prev) => prev + chunk);
+      }
+    } catch (error) {
+      console.error('Streaming error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  return { response, isLoading, streamResponse };
+}
+```

@@ -1,0 +1,134 @@
+1:"$Sreact.fragment"
+2:I[39756,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"default"]
+3:I[37457,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"default"]
+4:I[63780,["/_next/static/chunks/357bff0bbb935ae6.js","/_next/static/chunks/dbb7e7603798a34a.js"],"Navbar"]
+5:I[13137,["/_next/static/chunks/357bff0bbb935ae6.js","/_next/static/chunks/dbb7e7603798a34a.js"],"BlogGrid"]
+d:I[68027,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"default"]
+:HL["/_next/static/chunks/165796efe551ef94.css","style"]
+:HL["/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+6:T4d0,
+# The 60 FPS Challenge
+
+Achieving smooth 60 FPS animations on low-end Android devices is a common challenge in Flutter development. In this article, I'll share how we optimized Araby AI to achieve consistent performance.
+
+## Optimization Techniques
+
+Here are the key techniques we used:
+
+1.  **Skia Warm-up**: Pre-compiling shaders to avoid jank on the first run.
+2.  **RepaintBoundary**: Isolating complex widgets to prevent unnecessary repaints.
+3.  **ListView Builder**: Using `ListView.builder` instead of `ListView` for long lists.
+4.  **Const Keywords**: Using `const` constructors wherever possible to reduce garbage collection.
+
+## High-Performance ListView
+
+Here is an example of a high-performance `ListView` implementation in Dart:
+
+```dart
+import 'package:flutter/material.dart';
+
+class OptimizedListView extends StatelessWidget {
+  final List<String> items;
+
+  const OptimizedListView({super.key, required this.items});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return RepaintBoundary(
+          child: ListTile(
+            title: Text(items[index]),
+          ),
+        );
+      },
+    );
+  }
+}
+```
+7:T84d,
+# Real-time AI Chat Implementation
+
+When building AI-powered mobile apps, one of the biggest challenges is handling long response times. Streaming responses is crucial for a good user experience.
+
+## WebSockets vs HTTP for AI Streaming
+
+We evaluated both WebSockets and HTTP streaming (Server-Sent Events) for our AI integration.
+
+| Feature | WebSockets | HTTP Streaming |
+| :--- | :--- | :--- |
+| **Latency** | Low | Low |
+| **Complexity** | High | Low |
+| **Bidirectional** | Yes | No |
+| **Firewall Issues** | Common | Rare |
+
+For most AI chat applications, HTTP streaming is sufficient and easier to implement. However, if you need bidirectional audio or complex state management, WebSockets might be a better choice.
+
+## Comparison: GPT-4o vs Local Models
+
+| Model | Response Time | Accuracy | Cost |
+| :--- | :--- | :--- | :--- |
+| **GPT-4o** | ~500ms | High | High |
+| **Llama 3 (Local)** | ~100ms | Medium | Low |
+| **Mistral (Local)** | ~150ms | Medium | Low |
+
+## TypeScript Streaming Hook
+
+Here is a TypeScript hook for handling streaming responses in a React Native or Next.js app:
+
+```typescript
+import { useState, useCallback } from 'react';
+
+export function useStreamResponse() {
+  const [response, setResponse] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+
+  const streamResponse = useCallback(async (prompt: string) => {
+    setIsLoading(true);
+    setResponse('');
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt }),
+      });
+
+      if (!res.body) throw new Error('No response body');
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value);
+        setResponse((prev) => prev + chunk);
+      }
+    } catch (error) {
+      console.error('Streaming error:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  return { response, isLoading, streamResponse };
+}
+```
+0:{"P":null,"b":"ssLSovDnhV3yyL_oGz55y","c":["","blogs"],"q":"","i":false,"f":[[["",{"children":["blogs",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],[["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/165796efe551ef94.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","className":"inter_5901b7c6-module__ec5Qua__variable jetbrains_mono_8d4dab2e-module__xz2qEq__variable","children":["$","body",null,{"className":"font-sans antialiased bg-[#080c1a] text-slate-100 overflow-x-hidden","children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]}]]}],{"children":[["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["$","$1","c",{"children":[["$","main",null,{"className":"relative min-h-screen bg-[#080c1a]","children":[["$","$L4",null,{}],["$","div",null,{"className":"pt-32 pb-20 px-6","children":["$","div",null,{"className":"mx-auto max-w-6xl","children":[["$","div",null,{"className":"mb-12","children":[["$","h1",null,{"className":"mb-4 text-4xl font-bold tracking-tight text-white md:text-5xl","children":[["$","span",null,{"className":"text-blue-400","children":"Technical"}]," Insights"]}],["$","p",null,{"className":"max-w-2xl text-lg text-slate-400","children":"Deep dives into software architecture, mobile development, and AI integration. Sharing lessons learned from building large-scale applications."}]]}],["$","$L5",null,{"posts":[{"slug":"optimizing-flutter-performance","title":"Mastering Flutter Performance: How I Boosted Ratings to 4.0 Stars","date":"2026-02-25","excerpt":"Deep dive into the architectural changes and rendering optimizations that scaled Araby AI.","tags":["Flutter","Performance","Architecture"],"readingTime":"1 min read","content":"$6"},{"slug":"ai-integration-mobile","title":"Building Responsive AI Ecosystems","date":"2026-02-20","excerpt":"Exploring real-time AI chat implementation and streaming responses in mobile apps.","tags":["AI","Next.js","Mobile"],"readingTime":"2 min read","content":"$7"}]}]]}]}],"$L8"]}],["$L9","$La"],"$Lb"]}],{},null,false,false]},null,false,false]},null,false,false],"$Lc",false]],"m":"$undefined","G":["$d",[]],"S":true}
+e:I[76841,["/_next/static/chunks/357bff0bbb935ae6.js","/_next/static/chunks/dbb7e7603798a34a.js"],"Footer"]
+f:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"OutletBoundary"]
+10:"$Sreact.suspense"
+12:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"ViewportBoundary"]
+14:I[97367,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"MetadataBoundary"]
+8:["$","$Le",null,{}]
+9:["$","script","script-0",{"src":"/_next/static/chunks/357bff0bbb935ae6.js","async":true,"nonce":"$undefined"}]
+a:["$","script","script-1",{"src":"/_next/static/chunks/dbb7e7603798a34a.js","async":true,"nonce":"$undefined"}]
+b:["$","$Lf",null,{"children":["$","$10",null,{"name":"Next.MetadataOutlet","children":"$@11"}]}]
+c:["$","$1","h",{"children":[null,["$","$L12",null,{"children":"$L13"}],["$","div",null,{"hidden":true,"children":["$","$L14",null,{"children":["$","$10",null,{"name":"Next.Metadata","children":"$L15"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+13:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#0a0f1e"}]]
+16:I[27201,["/_next/static/chunks/ff1a16fafef87110.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"IconMark"]
+11:null
+15:[["$","title","0",{"children":"Blogs | Karim Gaber"}],["$","meta","1",{"name":"description","content":"Technical articles about Flutter, AI, and Software Architecture."}],["$","meta","2",{"name":"author","content":"Karim Essam Gaber Ahmed"}],["$","meta","3",{"name":"keywords","content":"Flutter,Mobile Developer,Abu Dhabi,Karim Gaber,Senior Developer"}],["$","meta","4",{"property":"og:title","content":"Karim Gaber | Senior Flutter Developer"}],["$","meta","5",{"property":"og:description","content":"Senior Flutter Developer with 4+ years of experience building market-leading AI applications and government-grade platforms."}],["$","meta","6",{"property":"og:url","content":"https://karimegaber.github.io/"}],["$","meta","7",{"property":"og:site_name","content":"Karim Gaber | Senior Flutter Developer"}],["$","meta","8",{"property":"og:locale","content":"en_US"}],["$","meta","9",{"property":"og:image","content":"https://karimegaber.github.io/opengraph-image.png"}],["$","meta","10",{"property":"og:image:width","content":"1200"}],["$","meta","11",{"property":"og:image:height","content":"630"}],["$","meta","12",{"property":"og:image:alt","content":"Karim Gaber | Senior Flutter Developer"}],["$","meta","13",{"property":"og:type","content":"website"}],["$","meta","14",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","15",{"name":"twitter:title","content":"Karim Gaber | Senior Flutter Developer"}],["$","meta","16",{"name":"twitter:description","content":"Senior Flutter Developer with 4+ years of experience building market-leading AI applications and government-grade platforms."}],["$","meta","17",{"name":"twitter:image","content":"https://karimegaber.github.io/opengraph-image.png"}],["$","link","18",{"rel":"icon","href":"/images/website-icon.png"}],["$","$L16","19",{}]]
