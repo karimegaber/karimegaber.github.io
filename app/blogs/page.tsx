@@ -1,55 +1,15 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { BlogPost } from "@/lib/blogs"
+import { getBlogPosts } from "@/lib/blogs"
 import { BlogGrid } from "@/components/blog-grid"
-import { BlogSkeleton } from "@/components/blog-skeleton"
-import { supabase } from "@/lib/supabase"
 
-export default function BlogsPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([])
-  const [loading, setLoading] = useState(true)
+export const metadata = {
+  title: "Blogs | Karim Gaber",
+  description: "Technical articles about Flutter, AI, and Software Architecture.",
+}
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        // Appending timestamp to potentially bust cache if supported by URL params,
-        // but primarily relying on lib/supabase.ts headers for strict no-cache.
-        // The .query() method does not exist on Supabase query builder,
-        // so we rely on the global configuration in lib/supabase.ts.
-        const { data, error } = await supabase
-          .from("posts")
-          .select("*")
-          .order("created_at", { ascending: false })
-
-        if (error) {
-          console.error("Error fetching posts:", error)
-          return
-        }
-
-        if (data) {
-          const formattedPosts = data.map((post) => ({
-            slug: post.slug,
-            title: post.title,
-            date: new Date(post.created_at).toISOString().split("T")[0],
-            excerpt: post.excerpt,
-            tags: post.tags,
-            readingTime: Math.ceil(post.content.split(/\s+/).length / 200) + " min read",
-            content: post.content,
-          }))
-          setPosts(formattedPosts)
-        }
-      } catch (error) {
-        console.error("Failed to fetch posts:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchPosts()
-  }, [])
+export default async function BlogsPage() {
+  const posts = await getBlogPosts()
 
   return (
     <main className="relative min-h-screen bg-[#080c1a]">
@@ -67,11 +27,7 @@ export default function BlogsPage() {
             </p>
           </div>
 
-          {loading ? (
-            <BlogSkeleton />
-          ) : (
-            <BlogGrid posts={posts} />
-          )}
+          <BlogGrid posts={posts} />
         </div>
       </div>
 
