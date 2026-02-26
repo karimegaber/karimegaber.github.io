@@ -1,29 +1,15 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
-import { getBlogPosts, BlogPost } from "@/lib/blogs"
+import { getBlogPosts } from "@/lib/blogs"
 import { BlogGrid } from "@/components/blog-grid"
-import { Loader2 } from "lucide-react"
 
-export default function BlogsPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([])
-  const [loading, setLoading] = useState(true)
+export const metadata = {
+  title: "Blogs | Karim Gaber",
+  description: "Technical articles about Flutter, AI, and Software Architecture.",
+}
 
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const data = await getBlogPosts()
-        setPosts(data)
-      } catch (error) {
-        console.error("Failed to fetch posts:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchPosts()
-  }, [])
+export default async function BlogsPage() {
+  const posts = await getBlogPosts()
 
   return (
     <main className="relative min-h-screen bg-[#080c1a]">
@@ -41,14 +27,7 @@ export default function BlogsPage() {
             </p>
           </div>
 
-          {loading ? (
-            <div className="flex h-64 items-center justify-center">
-              <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
-              <span className="ml-2 text-slate-400">Loading articles...</span>
-            </div>
-          ) : (
-            <BlogGrid posts={posts} />
-          )}
+          <BlogGrid posts={posts} />
         </div>
       </div>
 

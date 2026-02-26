@@ -1,19 +1,11 @@
-"use client"
-
-import { useEffect, useState } from "react"
-import { useParams } from "next/navigation"
+import { notFound } from "next/navigation"
 import Link from "next/link"
-import { ArrowLeft, Calendar, Clock, Tag, Loader2 } from "lucide-react"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
-import rehypeHighlight from "rehype-highlight"
-import "highlight.js/styles/github-dark.css"
-
-import { getBlogPostBySlug, getBlogPosts, BlogPost } from "@/lib/blogs"
+import { ArrowLeft, Calendar, Clock, Tag } from "lucide-react"
+import { MDXRemote } from "next-mdx-remote/rsc"
+import { getBlogPostBySlug, getBlogPosts } from "@/lib/blogs"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
-// Keep this for static export of existing paths
 export async function generateStaticParams() {
   const posts = await getBlogPosts()
   return posts.map((post) => ({
@@ -21,53 +13,28 @@ export async function generateStaticParams() {
   }))
 }
 
-export default function BlogPostPage() {
-  const params = useParams()
-  const slug = params?.slug as string
-
-  const [post, setPost] = useState<BlogPost | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function fetchPost() {
-      if (!slug) return
-
-      try {
-        const data = await getBlogPostBySlug(slug)
-        setPost(data)
-      } catch (error) {
-        console.error("Failed to fetch post:", error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchPost()
-  }, [slug])
-
-  if (loading) {
-    return (
-      <main className="relative min-h-screen bg-[#080c1a]">
-        <Navbar />
-        <div className="flex h-screen items-center justify-center pt-20">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-400" />
-          <span className="ml-2 text-slate-400">Loading article...</span>
-        </div>
-        <Footer />
-      </main>
-    )
-  }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
-    return (
-      <main className="relative min-h-screen bg-[#080c1a]">
-        <Navbar />
-        <div className="flex h-screen flex-col items-center justify-center pt-20 text-slate-400">
-          <p className="mb-4 text-xl">Post not found</p>
-          <Link href="/blogs" className="text-blue-400 hover:underline">Back to Blogs</Link>
-        </div>
-        <Footer />
-      </main>
-    )
+    return {
+      title: "Post Not Found",
+    }
+  }
+
+  return {
+    title: `${post.title} | Karim Gaber`,
+    description: post.excerpt,
+  }
+}
+
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getBlogPostBySlug(slug)
+
+  if (!post) {
+    notFound()
   }
 
   return (
@@ -76,7 +43,7 @@ export default function BlogPostPage() {
 
       <article className="pt-32 pb-20 px-6">
         <div className="mx-auto max-w-4xl">
-           <Link
+          <Link
             href="/blogs"
             className="group mb-8 inline-flex items-center gap-2 text-sm text-slate-400 transition-colors hover:text-blue-400"
           >
@@ -114,12 +81,7 @@ export default function BlogPostPage() {
           </div>
 
           <div className="prose prose-invert prose-lg max-w-none prose-headings:text-slate-100 prose-p:text-slate-300 prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline prose-code:text-blue-300 prose-pre:bg-[#0f1629] prose-pre:border prose-pre:border-white/10">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              rehypePlugins={[rehypeHighlight]}
-            >
-              {post.content}
-            </ReactMarkdown>
+            <MDXRemote source={post.content} />
           </div>
         </div>
       </article>
