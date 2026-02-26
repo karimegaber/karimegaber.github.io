@@ -7,7 +7,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 
 export async function generateStaticParams() {
-  const posts = getBlogPosts()
+  const posts = await getBlogPosts()
   return posts.map((post) => ({
     slug: post.slug,
   }))
@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const post = getBlogPostBySlug(slug)
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
     return {
@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const post = getBlogPostBySlug(slug)
+  const post = await getBlogPostBySlug(slug)
 
   if (!post) {
     notFound()

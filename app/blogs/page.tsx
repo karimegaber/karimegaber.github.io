@@ -8,8 +8,8 @@ export const metadata = {
   description: "Technical articles about Flutter, AI, and Software Architecture.",
 }
 
-export default function BlogsPage() {
-  const posts = getBlogPosts()
+export default async function BlogsPage() {
+  const posts = await getBlogPosts()
 
   return (
     <main className="relative min-h-screen bg-[#080c1a]">
