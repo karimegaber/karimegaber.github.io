@@ -1,4 +1,4 @@
-import { BlogPostClient } from "./client"
+import { BlogClient } from "./blog-client"
 
 // This is required for static export to work with dynamic routes.
 // We must return at least one path to prevent Next.js from throwing "missing generateStaticParams".
@@ -8,5 +8,5 @@ export async function generateStaticParams() {
 }
 
 export default function BlogPostPage() {
-  return <BlogPostClient />
+  return <BlogClient />
 }
