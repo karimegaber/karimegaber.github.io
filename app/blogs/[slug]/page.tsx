@@ -1,13 +1,12 @@
-import { BlogPostClient } from "./client"
+import { BlogClient } from "./blog-client"
 
-// To satisfy Next.js static export constraints (output: 'export'),
-// dynamic routes like [slug] MUST have generateStaticParams.
-// We return a dummy path. The client logic will handle actual rendering.
-// This physically prevents data baking during the build while keeping the compiler happy.
+// This is required for static export to work with dynamic routes.
+// We must return at least one path to prevent Next.js from throwing "missing generateStaticParams".
+// The 'index' slug is a dummy value. The client-side router will handle real slugs.
 export async function generateStaticParams() {
   return [{ slug: 'index' }]
 }
 
 export default function BlogPostPage() {
-  return <BlogPostClient />
+  return <BlogClient />
 }
