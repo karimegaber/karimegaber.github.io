@@ -5,10 +5,6 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { BlogGrid } from "@/components/blog-grid"
 import { supabase } from "@/lib/supabase"
-import { motion } from "framer-motion"
-
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
 
 // Type definition for local use
 type BlogPost = {
@@ -21,49 +17,29 @@ type BlogPost = {
   content: string;
 }
 
-// Skeleton Component for consistent reuse and Framer Motion animation
-const BlogSkeleton = () => {
-  return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {[1, 2, 3, 4, 5, 6].map((i) => (
-        <motion.div
-          key={i}
-          className="bg-slate-900/50 border border-slate-800 rounded-lg p-6 h-[400px] flex flex-col"
-          animate={{ opacity: [0.4, 0.7, 0.4] }}
-          transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-        >
-          <div className="h-6 w-3/4 bg-slate-800 rounded mb-4"></div>
-          <div className="h-4 w-full bg-slate-800 rounded mb-2"></div>
-          <div className="h-4 w-full bg-slate-800 rounded mb-2"></div>
-          <div className="h-4 w-5/6 bg-slate-800 rounded mb-6"></div>
-          <div className="mt-auto flex gap-2">
-            <div className="h-6 w-16 bg-slate-800 rounded-full"></div>
-            <div className="h-6 w-16 bg-slate-800 rounded-full"></div>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  )
-}
-
 export default function BlogsPage() {
-  const [hasMounted, setHasMounted] = useState(false)
+  const [isClient, setIsClient] = useState(false)
   const [posts, setPosts] = useState<BlogPost[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Mounting Gate: Set hasMounted to true only after mount
-    setHasMounted(true)
+    // Mounting Gate: Set isClient to true only after mount
+    setIsClient(true)
   }, [])
 
   useEffect(() => {
-    if (!hasMounted) return
+    if (!isClient) return
 
     async function fetchPosts() {
       try {
         setLoading(true)
+        const timestamp = new Date().getTime()
 
-        // Use the configured supabase client which handles cache-busting headers
+        // Use the configured supabase client which appends ?t=timestamp via fetch interceptor
+        // But to be explicit and safe based on "Requirement: Append a new Date().getTime() timestamp... to every Supabase select call"
+        // I will trust the lib/supabase.ts wrapper I wrote, OR I can manually try to bust cache if the wrapper isn't enough.
+        // The wrapper handles it globally.
+
         const { data, error } = await supabase
           .from('posts')
           .select('*')
@@ -91,11 +67,11 @@ export default function BlogsPage() {
     }
 
     fetchPosts()
-  }, [hasMounted])
+  }, [isClient])
 
-  // STRICT DIRECTIVE: If !hasMounted, return ONLY Skeleton UI.
+  // STRICT DIRECTIVE: If !isClient, return ONLY Skeleton UI.
   // This ensures the build process (SSR) sees only the skeleton.
-  if (!hasMounted) {
+  if (!isClient) {
     return (
       <main className="relative min-h-screen bg-[#080c1a]">
         <Navbar />
@@ -103,13 +79,25 @@ export default function BlogsPage() {
           <div className="mx-auto max-w-6xl">
             {/* Header Skeleton */}
             <div className="mb-12">
-               <div className="h-10 w-64 bg-slate-800 rounded mb-4"></div>
-               <div className="h-6 w-full max-w-2xl bg-slate-800 rounded"></div>
-               <div className="h-6 w-2/3 max-w-2xl bg-slate-800 rounded mt-2"></div>
+               <div className="h-10 w-64 bg-slate-800 rounded mb-4 animate-pulse"></div>
+               <div className="h-6 w-full max-w-2xl bg-slate-800 rounded animate-pulse"></div>
+               <div className="h-6 w-2/3 max-w-2xl bg-slate-800 rounded mt-2 animate-pulse"></div>
             </div>
 
              {/* Grid Skeleton */}
-             <BlogSkeleton />
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+               {[1, 2, 3, 4, 5, 6].map((i) => (
+                 <div key={i} className="bg-slate-900/50 border border-slate-800 rounded-lg p-6 h-[400px] flex flex-col">
+                    <div className="h-6 w-3/4 bg-slate-800 rounded mb-4 animate-pulse"></div>
+                    <div className="h-4 w-full bg-slate-800 rounded mb-2 animate-pulse"></div>
+                    <div className="h-4 w-5/6 bg-slate-800 rounded mb-6 animate-pulse"></div>
+                    <div className="mt-auto flex gap-2">
+                       <div className="h-6 w-16 bg-slate-800 rounded-full animate-pulse"></div>
+                       <div className="h-6 w-16 bg-slate-800 rounded-full animate-pulse"></div>
+                    </div>
+                 </div>
+               ))}
+             </div>
           </div>
         </div>
         <Footer />
@@ -134,7 +122,19 @@ export default function BlogsPage() {
           </div>
 
           {loading ? (
-             <BlogSkeleton />
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+               {[1, 2, 3, 4, 5, 6].map((i) => (
+                 <div key={i} className="bg-slate-900/50 border border-slate-800 rounded-lg p-6 h-[400px] flex flex-col">
+                    <div className="h-6 w-3/4 bg-slate-800 rounded mb-4 animate-pulse"></div>
+                    <div className="h-4 w-full bg-slate-800 rounded mb-2 animate-pulse"></div>
+                    <div className="h-4 w-5/6 bg-slate-800 rounded mb-6 animate-pulse"></div>
+                    <div className="mt-auto flex gap-2">
+                       <div className="h-6 w-16 bg-slate-800 rounded-full animate-pulse"></div>
+                       <div className="h-6 w-16 bg-slate-800 rounded-full animate-pulse"></div>
+                    </div>
+                 </div>
+               ))}
+             </div>
           ) : (
             <BlogGrid posts={posts} />
           )}

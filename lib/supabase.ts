@@ -9,18 +9,11 @@ export const supabase = createClient(supabaseUrl, supabaseKey, {
     persistSession: false,
   },
   global: {
-    // Correct cache-busting fetch options
     fetch: (url, options) => {
-      const headers = new Headers(options?.headers);
-      headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
-      headers.set('Pragma', 'no-cache');
-      headers.set('Expires', '0');
-
-      return fetch(url, {
-        ...options,
-        headers,
-        cache: 'no-store',
-      });
+      // Append timestamp to query parameters to bypass caching
+      const newUrl = new URL(url as string);
+      newUrl.searchParams.append('t', new Date().getTime().toString());
+      return fetch(newUrl.toString(), options);
     },
   },
 });
