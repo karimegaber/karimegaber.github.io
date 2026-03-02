@@ -42,7 +42,7 @@ export default function BlogsPage() {
 
         const { data, error } = await supabase
           .from('posts')
-          .select('*')
+          .select('*') 
         
         if (error) {
           console.error('Error fetching posts:', error)
