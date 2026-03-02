@@ -9,12 +9,11 @@ export const supabase = createClient(supabaseUrl, supabaseKey, {
     persistSession: false,
   },
   global: {
-    // Inject custom headers directly into the global configuration to fix PGRST100
-    // This ensures no URL parameters are appended to the query.
-    headers: {
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    }
+    fetch: (url, options) => {
+      // Append timestamp to query parameters to bypass caching
+      const newUrl = new URL(url as string);
+      newUrl.searchParams.append('t', new Date().getTime().toString());
+      return fetch(newUrl.toString(), options);
+    },
   },
 });
