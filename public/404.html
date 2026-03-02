@@ -4,23 +4,21 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-      var l = window.location;
-      var path = l.pathname;
-      var search = l.search;
-      var hash = l.hash;
+      // 404 Error Handler for GitHub Pages SPA
+      // Captures the failed route and redirects to root with the path as a query parameter
+      (function() {
+        var l = window.location;
+        var p = l.pathname;
+        var s = l.search;
+        var h = l.hash;
 
-      // Construct redirect URL
-      // If deployed at root, path starts with /, so we use /?p=path
-      // If deployed at /repo/, path starts with /repo/, so we use /repo/?p=/path-relative-to-repo
-      // However, the prompt implies "replaces the path with a query parameter ?p=".
-      // I will implement a simpler version that works if the site is at root or subdirectory aware.
-      // Assuming root deployment or handling by next/router.
+        // Construct the new URL: root (/) + ?p=encodedPath
+        // l.origin gives us https://domain.com
+        var target = l.origin + '/?p=' + encodeURIComponent(p + s + h);
 
-      // Correct approach for GH Pages SPA hack:
-      // Redirect to index.html with query param containing the path.
-
-      var newUrl = l.origin + "/?p=" + encodeURIComponent(path + search + hash);
-      window.location.replace(newUrl);
+        // Perform the redirect
+        l.replace(target);
+      })();
     </script>
   </head>
   <body>
