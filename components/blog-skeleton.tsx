@@ -1,0 +1,75 @@
+"use client"
+
+import { motion } from "framer-motion"
+
+export function BlogSkeleton() {
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          animate={{ opacity: [0.4, 0.7, 0.4] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="h-64 rounded-xl border border-white/5 bg-white/5 p-6"
+        >
+          <div className="mb-4 flex gap-2">
+            <div className="h-6 w-20 rounded-full bg-slate-700/50" />
+            <div className="h-6 w-16 rounded-full bg-slate-700/50" />
+          </div>
+          <div className="mb-4 h-8 w-3/4 rounded-lg bg-slate-700/50" />
+          <div className="space-y-2">
+            <div className="h-4 w-full rounded bg-slate-700/30" />
+            <div className="h-4 w-full rounded bg-slate-700/30" />
+            <div className="h-4 w-2/3 rounded bg-slate-700/30" />
+          </div>
+          <div className="mt-8 flex justify-between border-t border-white/5 pt-4">
+            <div className="h-4 w-24 rounded bg-slate-700/30" />
+            <div className="h-4 w-16 rounded bg-slate-700/30" />
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
+export function BlogPostSkeleton() {
+  return (
+    <div className="space-y-8">
+      <motion.div
+        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        className="h-4 w-32 rounded bg-slate-700/50"
+      />
+      <motion.div
+        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        className="space-y-4"
+      >
+        <div className="h-12 w-3/4 rounded-lg bg-slate-700/50" />
+        <div className="flex gap-4">
+          <div className="h-4 w-24 rounded bg-slate-700/50" />
+          <div className="h-4 w-24 rounded bg-slate-700/50" />
+        </div>
+      </motion.div>
+      <motion.div
+        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        className="flex gap-2"
+      >
+        <div className="h-6 w-20 rounded-full bg-slate-700/50" />
+        <div className="h-6 w-24 rounded-full bg-slate-700/50" />
+      </motion.div>
+      <motion.div
+        animate={{ opacity: [0.4, 0.7, 0.4] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+        className="space-y-4 pt-8"
+      >
+        <div className="h-4 w-full rounded bg-slate-700/30" />
+        <div className="h-4 w-full rounded bg-slate-700/30" />
+        <div className="h-4 w-5/6 rounded bg-slate-700/30" />
+        <div className="h-4 w-full rounded bg-slate-700/30" />
+        <div className="h-4 w-4/5 rounded bg-slate-700/30" />
+      </motion.div>
+    </div>
+  )
+}
