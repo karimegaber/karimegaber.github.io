@@ -33,12 +33,6 @@ export default function BlogsPage() {
     async function fetchPosts() {
       try {
         setLoading(true)
-        const timestamp = new Date().getTime()
-
-        // Use the configured supabase client which appends ?t=timestamp via fetch interceptor
-        // But to be explicit and safe based on "Requirement: Append a new Date().getTime() timestamp... to every Supabase select call"
-        // I will trust the lib/supabase.ts wrapper I wrote, OR I can manually try to bust cache if the wrapper isn't enough.
-        // The wrapper handles it globally.
 
         const { data, error } = await supabase
           .from('posts')
