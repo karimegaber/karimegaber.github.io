@@ -1,19 +1,20 @@
-import type { Metadata, Viewport } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import type { Metadata, Viewport } from "next";
+import { Inter, JetBrains_Mono } from "next/font/google";
+import { Suspense } from "react";
+import { RouteHandler } from "@/components/route-handler";
+import "./globals.css";
 
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
-const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains' })
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains" });
 
 export const metadata: Metadata = {
-  title: 'Karim Gaber | Senior Flutter Developer',
+  title: "Karim Gaber | Senior Flutter Developer",
   description:
-    'Senior Flutter Developer with 4+ years of experience building government-grade platforms and market-leading AI applications serving millions of users.',
-  keywords: ['Flutter', 'Mobile Developer', 'Abu Dhabi', 'Karim Gaber', 'Senior Developer'],
-  authors: [{ name: 'Karim Essam Gaber Ahmed' }],
+    "Senior Flutter Developer with 4+ years of experience building government-grade platforms and market-leading AI applications serving millions of users.",
+  keywords: ["Flutter", "Mobile Developer", "Abu Dhabi", "Karim Gaber", "Senior Developer"],
+  authors: [{ name: "Karim Essam Gaber Ahmed" }],
   icons: {
-    icon: '/images/website-icon.png',
+    icon: "/images/website-icon.png",
   },
   openGraph: {
     title: "Karim Gaber | Senior Flutter Developer",
@@ -39,22 +40,25 @@ export const metadata: Metadata = {
     description: "Senior Flutter Developer with 4+ years of experience building market-leading AI applications and government-grade platforms.",
     images: ["https://karimegaber.github.io/opengraph-image.png"],
   },
-}
+};
 
 export const viewport: Viewport = {
-  themeColor: '#0a0f1e',
-}
+  themeColor: "#0a0f1e",
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans antialiased bg-[#080c1a] text-slate-100 overflow-x-hidden">
+        <Suspense fallback={null}>
+          <RouteHandler />
+        </Suspense>
         {children}
       </body>
     </html>
-  )
+  );
 }

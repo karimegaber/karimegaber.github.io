@@ -3,18 +3,22 @@
 import { useState, useEffect, MouseEvent } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 const navLinks = [
-  { label: "Stats", href: "#stats" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#timeline" },
-  { label: "Contact", href: "#contact" },
+  { label: "Stats", href: "/#stats" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Experience", href: "/#timeline" },
+  { label: "Contact", href: "/#contact" },
+  { label: "Blogs", href: "/blogs" },
 ]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50)
@@ -22,23 +26,29 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handler)
   }, [])
 
-  const handleMobileClick = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault()
+  const handleScroll = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
     setMobileOpen(false)
 
-    setTimeout(() => {
-      const element = document.querySelector(href)
-      if (element) {
-        const offset = 80
-        const elementPosition = element.getBoundingClientRect().top + window.scrollY
-        const offsetPosition = elementPosition - offset
+    // Check if it's a hash link
+    if (href.includes('#')) {
+      const hash = href.split('#')[1]
+      // If we're on the homepage, scroll smoothly
+      if (pathname === '/') {
+        e.preventDefault()
+        const element = document.getElementById(hash)
+        if (element) {
+          const offset = 80
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY
+          const offsetPosition = elementPosition - offset
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        })
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          })
+        }
       }
-    }, 100)
+      // If we're not on the homepage, let the Link handle navigation to /#hash
+    }
   }
 
   return (
@@ -51,21 +61,22 @@ export function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
-        <a href="#" className="flex items-center">
+        <Link href="/" className="flex items-center">
           <span className="font-mono text-sm font-bold tracking-widest text-white">
             <span className="text-blue-400">KARIM</span> GABER
           </span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-8 md:flex">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
               href={link.href}
+              onClick={(e) => handleScroll(e, link.href)}
               className="font-mono text-xs uppercase tracking-widest text-slate-400 transition-colors hover:text-blue-400"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -88,14 +99,14 @@ export function Navbar() {
           >
             <div className="flex flex-col gap-1 px-6 py-4">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => handleMobileClick(e, link.href)}
+                  onClick={(e) => handleScroll(e, link.href)}
                   className="rounded-md px-3 py-2.5 font-mono text-xs uppercase tracking-widest text-slate-400 transition-colors hover:bg-blue-500/10 hover:text-blue-400"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>
