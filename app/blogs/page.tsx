@@ -72,21 +72,21 @@ export default function BlogsPage() {
           <div className="mx-auto max-w-6xl">
             {/* Header Skeleton */}
             <div className="mb-12">
-               <div className="h-10 w-64 bg-slate-800 rounded mb-4 animate-pulse"></div>
-               <div className="h-6 w-full max-w-2xl bg-slate-800 rounded animate-pulse"></div>
-               <div className="h-6 w-2/3 max-w-2xl bg-slate-800 rounded mt-2 animate-pulse"></div>
+               <div className="h-10 w-64 bg-white dark:bg-slate-800 rounded mb-4 animate-pulse"></div>
+               <div className="h-6 w-full max-w-2xl bg-white dark:bg-slate-800 rounded animate-pulse"></div>
+               <div className="h-6 w-2/3 max-w-2xl bg-white dark:bg-slate-800 rounded mt-2 animate-pulse"></div>
             </div>
 
              {/* Grid Skeleton */}
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                {[1, 2, 3, 4, 5, 6].map((i) => (
-                 <div key={i} className="bg-slate-900/50 border border-slate-800 rounded-lg p-6 h-[400px] flex flex-col">
-                    <div className="h-6 w-3/4 bg-slate-800 rounded mb-4 animate-pulse"></div>
-                    <div className="h-4 w-full bg-slate-800 rounded mb-2 animate-pulse"></div>
-                    <div className="h-4 w-5/6 bg-slate-800 rounded mb-6 animate-pulse"></div>
+                 <div key={i} className="bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-lg p-6 h-[400px] flex flex-col">
+                    <div className="h-6 w-3/4 bg-white dark:bg-slate-800 rounded mb-4 animate-pulse"></div>
+                    <div className="h-4 w-full bg-white dark:bg-slate-800 rounded mb-2 animate-pulse"></div>
+                    <div className="h-4 w-5/6 bg-white dark:bg-slate-800 rounded mb-6 animate-pulse"></div>
                     <div className="mt-auto flex gap-2">
-                       <div className="h-6 w-16 bg-slate-800 rounded-full animate-pulse"></div>
-                       <div className="h-6 w-16 bg-slate-800 rounded-full animate-pulse"></div>
+                       <div className="h-6 w-16 bg-white dark:bg-slate-800 rounded-full animate-pulse"></div>
+                       <div className="h-6 w-16 bg-white dark:bg-slate-800 rounded-full animate-pulse"></div>
                     </div>
                  </div>
                ))}
@@ -105,10 +105,10 @@ export default function BlogsPage() {
       <div className="pt-32 pb-20 px-6">
         <div className="mx-auto max-w-6xl">
           <div className="mb-12">
-            <h1 className="mb-4 text-4xl font-bold tracking-tight text-white md:text-5xl">
-              <span className="text-blue-400">Technical</span> Insights
+            <h1 className="mb-4 text-4xl font-bold tracking-tight text-slate-900 dark:text-white md:text-5xl">
+              <span className="text-blue-600 dark:text-blue-400">Technical</span> Insights
             </h1>
-            <p className="max-w-2xl text-lg text-slate-400">
+            <p className="max-w-2xl text-lg text-slate-400 dark:text-slate-500 dark:text-slate-400">
               Deep dives into software architecture, mobile development, and AI integration.
               Sharing lessons learned from building large-scale applications.
             </p>
@@ -117,13 +117,13 @@ export default function BlogsPage() {
           {loading ? (
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                {[1, 2, 3, 4, 5, 6].map((i) => (
-                 <div key={i} className="bg-slate-900/50 border border-slate-800 rounded-lg p-6 h-[400px] flex flex-col">
-                    <div className="h-6 w-3/4 bg-slate-800 rounded mb-4 animate-pulse"></div>
-                    <div className="h-4 w-full bg-slate-800 rounded mb-2 animate-pulse"></div>
-                    <div className="h-4 w-5/6 bg-slate-800 rounded mb-6 animate-pulse"></div>
+                 <div key={i} className="bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-lg p-6 h-[400px] flex flex-col">
+                    <div className="h-6 w-3/4 bg-white dark:bg-slate-800 rounded mb-4 animate-pulse"></div>
+                    <div className="h-4 w-full bg-white dark:bg-slate-800 rounded mb-2 animate-pulse"></div>
+                    <div className="h-4 w-5/6 bg-white dark:bg-slate-800 rounded mb-6 animate-pulse"></div>
                     <div className="mt-auto flex gap-2">
-                       <div className="h-6 w-16 bg-slate-800 rounded-full animate-pulse"></div>
-                       <div className="h-6 w-16 bg-slate-800 rounded-full animate-pulse"></div>
+                       <div className="h-6 w-16 bg-white dark:bg-slate-800 rounded-full animate-pulse"></div>
+                       <div className="h-6 w-16 bg-white dark:bg-slate-800 rounded-full animate-pulse"></div>
                     </div>
                  </div>
                ))}

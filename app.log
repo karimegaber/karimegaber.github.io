@@ -1,0 +1,70 @@
+npm warn exec The following package was not found and will be installed: serve@14.2.5
+ INFO  Accepting connections at http://localhost:3000
+ HTTP  3/2/2026 3:33:13 PM ::1 GET /
+ HTTP  3/2/2026 3:33:13 PM ::1 Returned 200 in 318 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 4 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 4 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/06f2a9705da748e0.css
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /images/karim-profile.png
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 3 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 34 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/cd5aa797bbb81455.js
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 2 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/76c064224d953678.js
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/72812af0c545d189.js
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/aebc3b6d791f68d2.js
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/turbopack-0d2f8116e69e0a2c.js
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/7d17d5545595db37.js
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 5 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 6 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 6 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 6 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 9 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/ff1a16fafef87110.js
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/0bd6498bda341889.js
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/30a59fffda362949.js
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 3 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 4 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /_next/static/chunks/5231e1944d39ff83.js
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 5 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 5 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /images/projects/araby-ai.png
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /images/projects/awqaf-uae-ing.png
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /images/projects/soulsync.png
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /images/projects/moodees.png
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /images/projects/martini.png
+ HTTP  3/2/2026 3:33:14 PM ::1 GET /images/projects/findley.png
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 10 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 10 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 16 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 18 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 23 ms
+ HTTP  3/2/2026 3:33:14 PM ::1 Returned 200 in 29 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 HEAD /blogs
+ HTTP  3/2/2026 3:33:15 PM ::1 HEAD /
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 304 in 2 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 3 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /__next._tree.txt?_rsc=1r34m
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /blogs/__next._tree.txt?_rsc=1r34m
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 4 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 2 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /__next._head.txt?_rsc=1pn8p
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /__next._index.txt?_rsc=nn07o
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /__next.__PAGE__.txt?_rsc=ivliq
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 4 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 3 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /blogs/__next._head.txt?_rsc=1pn8p
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 4 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 6 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /blogs/__next.blogs.txt?_rsc=1yc2h
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 3 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /blogs/__next.blogs.__PAGE__.txt?_rsc=qn0i0
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 2 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /_next/static/chunks/31b827ad4522eaf1.js
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /_next/static/chunks/8834a62f0878188b.js
+ HTTP  3/2/2026 3:33:15 PM ::1 GET /_next/static/chunks/2306fdd0643a56cd.js
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 2 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 3 ms
+ HTTP  3/2/2026 3:33:15 PM ::1 Returned 200 in 4 ms

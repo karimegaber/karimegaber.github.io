@@ -52,7 +52,7 @@ const colorMap: Record<string, { border: string; bg: string; text: string; dot: 
   blue: {
     border: "border-blue-500/20",
     bg: "bg-blue-500/10",
-    text: "text-blue-400",
+    text: "text-blue-600 dark:text-blue-400",
     dot: "bg-blue-400",
   },
   cyan: {
@@ -100,10 +100,10 @@ export function Skills() {
           transition={{ duration: 0.5 }}
           className="mb-16 text-center"
         >
-          <span className="font-mono text-xs uppercase tracking-widest text-blue-400">
+          <span className="font-mono text-xs uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Technical Expertise
           </span>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
             MY SUPER POWERS
           </h2>
         </motion.div>
@@ -118,7 +118,7 @@ export function Skills() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="group relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900/50 p-6 transition-all hover:border-slate-700"
+                className="group relative overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 p-6 transition-all hover:border-slate-300 dark:border-slate-700"
               >
                 <div className="mb-5 flex items-center gap-3">
                   <div
@@ -127,8 +127,8 @@ export function Skills() {
                     {cat.icon}
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-white">{cat.title}</h3>
-                    <p className="text-xs text-slate-500">{cat.description}</p>
+                    <h3 className="text-base font-semibold text-slate-900 dark:text-white">{cat.title}</h3>
+                    <p className="text-xs text-slate-400 dark:text-slate-500">{cat.description}</p>
                   </div>
                 </div>
 
@@ -136,7 +136,7 @@ export function Skills() {
                   {cat.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="flex items-center gap-1.5 rounded-md border border-slate-800 bg-slate-800/60 px-3 py-1.5 font-mono text-xs text-slate-300"
+                      className="flex items-center gap-1.5 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 px-3 py-1.5 font-mono text-xs text-slate-600 dark:text-slate-300"
                     >
                       <span className={`h-1.5 w-1.5 rounded-full ${c.dot}`} />
                       {skill}

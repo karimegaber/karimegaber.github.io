@@ -97,10 +97,10 @@ export function Timeline() {
           transition={{ duration: 0.5 }}
           className="mb-16"
         >
-          <span className="font-mono text-xs uppercase tracking-widest text-blue-400">
+          <span className="font-mono text-xs uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Career Path
           </span>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
             Professional Experience
           </h2>
           <div className="mt-2 h-1 w-12 rounded-full bg-blue-500" />
@@ -117,8 +117,8 @@ export function Timeline() {
               transition={{ duration: 0.6, delay: i * 0.1 }}
               className={`group relative w-full overflow-hidden rounded-2xl border transition-all duration-300 ${
                 exp.current
-                  ? "border-blue-500/30 bg-slate-900/70 glow-blue"
-                  : "border-slate-800 bg-slate-900/50 hover:border-slate-700"
+                  ? "border-blue-500/30 bg-slate-100 dark:bg-slate-900/70 glow-blue"
+                  : "border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 hover:border-slate-300 dark:border-slate-700"
               }`}
             >
               {/* Top accent bar */}
@@ -135,35 +135,35 @@ export function Timeline() {
                       className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border ${
                         exp.current
                           ? "border-blue-500/30 bg-blue-500/10"
-                          : "border-slate-700 bg-slate-800/80"
+                          : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80"
                       }`}
                     >
                       <Briefcase
                         size={20}
-                        className={exp.current ? "text-blue-400" : "text-slate-400"}
+                        className={exp.current ? "text-blue-600 dark:text-blue-400" : "text-slate-400 dark:text-slate-500 dark:text-slate-400"}
                       />
                     </div>
 
                     <div>
-                      <h3 className="text-xl font-bold text-white sm:text-2xl">{exp.title}</h3>
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white sm:text-2xl">{exp.title}</h3>
                       <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
-                        <span className="flex items-center gap-1.5 text-sm text-slate-300">
-                          <Building2 size={14} className="text-slate-500" />
+                        <span className="flex items-center gap-1.5 text-sm text-slate-600 dark:text-slate-300">
+                          <Building2 size={14} className="text-slate-400 dark:text-slate-500" />
                           {exp.link ? (
                             <a
                               href={exp.link}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-blue-400 hover:underline"
+                              className="text-blue-600 dark:text-blue-400 hover:underline"
                             >
                               {exp.company}
                             </a>
                           ) : (
-                            <span className="text-blue-400">{exp.company}</span>
+                            <span className="text-blue-600 dark:text-blue-400">{exp.company}</span>
                           )}
                         </span>
-                        <span className="flex items-center gap-1.5 text-sm text-slate-400">
-                          <MapPin size={14} className="text-slate-500" />
+                        <span className="flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400">
+                          <MapPin size={14} className="text-slate-400 dark:text-slate-500" />
                           {exp.location}
                         </span>
                       </div>
@@ -174,8 +174,8 @@ export function Timeline() {
                   <div
                     className={`flex shrink-0 items-center gap-2 rounded-full border px-4 py-1.5 font-mono text-xs ${
                       exp.current
-                        ? "border-blue-500/20 bg-blue-500/5 text-blue-400"
-                        : "border-slate-700 bg-slate-800/50 text-slate-400"
+                        ? "border-blue-500/20 bg-blue-500/5 text-blue-600 dark:text-blue-400"
+                        : "border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 dark:text-slate-400"
                     }`}
                   >
                     <Calendar size={12} />
@@ -190,7 +190,7 @@ export function Timeline() {
                 </div>
 
                 {/* Divider */}
-                <div className="my-6 h-px w-full bg-gradient-to-r from-slate-800 via-slate-700/50 to-slate-800" />
+                <div className="my-6 h-px w-full bg-gradient-to-r from-slate-100 dark:from-slate-800 via-slate-700/50 to-slate-100 dark:to-slate-800" />
 
                 {/* Projects / Bullets */}
                 <div className="space-y-8">
@@ -198,7 +198,7 @@ export function Timeline() {
                     <div key={pi}>
                       {project.name && (
                         <div className="mb-4 flex items-center gap-2">
-                          <h4 className="text-base font-semibold text-white">{project.name}</h4>
+                          <h4 className="text-base font-semibold text-slate-900 dark:text-white">{project.name}</h4>
                         </div>
                       )}
                       <ul className="space-y-2.5">
@@ -209,9 +209,9 @@ export function Timeline() {
                           >
                             <ChevronRight
                               size={14}
-                              className="mt-1 shrink-0 text-blue-400/70"
+                              className="mt-1 shrink-0 text-blue-600 dark:text-blue-400/70"
                             />
-                            <span className="text-sm leading-relaxed text-slate-300">
+                            <span className="text-sm leading-relaxed text-slate-600 dark:text-slate-300">
                               {bullet}
                             </span>
                           </li>
@@ -232,25 +232,25 @@ export function Timeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
-            className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 sm:p-8"
+            className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 p-6 sm:p-8"
           >
             <div className="mb-5 flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-400">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400">
                 <GraduationCap size={20} />
               </div>
-              <h3 className="text-lg font-semibold text-white">Education</h3>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Education</h3>
             </div>
             <div>
-              <p className="text-base font-medium text-white">Bachelor of Computer Science</p>
-              <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-400">
-                <Building2 size={13} className="text-slate-500" />
+              <p className="text-base font-medium text-slate-900 dark:text-white">Bachelor of Computer Science</p>
+              <p className="mt-1 flex items-center gap-1.5 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400">
+                <Building2 size={13} className="text-slate-400 dark:text-slate-500" />
                 October 6 University, Giza, Egypt
               </p>
-              <p className="mt-0.5 flex items-center gap-1.5 font-mono text-xs text-slate-500">
+              <p className="mt-0.5 flex items-center gap-1.5 font-mono text-xs text-slate-400 dark:text-slate-500">
                 <Calendar size={12} className="text-slate-600" />
                 10/2018 - 06/2022
               </p>
-              <div className="mt-3 inline-flex rounded-lg border border-blue-500/20 bg-blue-500/5 px-3 py-1 font-mono text-xs text-blue-400">
+              <div className="mt-3 inline-flex rounded-lg border border-blue-500/20 bg-blue-500/5 px-3 py-1 font-mono text-xs text-blue-600 dark:text-blue-400">
                 GPA: 3.08 / 4.0 (Very Good)
               </div>
             </div>
@@ -261,23 +261,23 @@ export function Timeline() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6 sm:p-8"
+            className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 p-6 sm:p-8"
           >
             <div className="mb-5 flex items-center gap-3">
               <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-cyan-500/20 bg-cyan-500/10 text-cyan-400">
                 <Languages size={20} />
               </div>
-              <h3 className="text-lg font-semibold text-white">Languages</h3>
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Languages</h3>
             </div>
             <div className="space-y-4">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-white">Arabic</span>
-                  <span className="rounded-md border border-slate-700 bg-slate-800/60 px-2 py-0.5 font-mono text-[10px] text-slate-400">
+                  <span className="text-sm font-medium text-slate-900 dark:text-white">Arabic</span>
+                  <span className="rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/60 px-2 py-0.5 font-mono text-[10px] text-slate-400 dark:text-slate-500 dark:text-slate-400">
                     Native
                   </span>
                 </div>
-                <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white dark:bg-slate-800">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: "100%" }}
@@ -289,12 +289,12 @@ export function Timeline() {
               </div>
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-white">English</span>
-                  <span className="rounded-md border border-slate-700 bg-slate-800/60 px-2 py-0.5 font-mono text-[10px] text-slate-400">
+                  <span className="text-sm font-medium text-slate-900 dark:text-white">English</span>
+                  <span className="rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/60 px-2 py-0.5 font-mono text-[10px] text-slate-400 dark:text-slate-500 dark:text-slate-400">
                     Upper-Intermediate
                   </span>
                 </div>
-                <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-white dark:bg-slate-800">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: "80%" }}
