@@ -10,20 +10,7 @@ export type BlogPost = {
   content: string;
 };
 
-// Check if we are in a build environment without real credentials
-const isBuildWithoutCredentials =
-  !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-  process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder') ||
-  !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.includes('placeholder');
-
 export async function getBlogPosts(): Promise<BlogPost[]> {
-  // If we don't have real credentials, return empty array immediately to avoid build failures
-  if (isBuildWithoutCredentials) {
-    console.warn('Building with placeholder credentials - returning empty blog posts list.');
-    return [];
-  }
-
   try {
     const { data: posts, error } = await supabase
       .from('posts')
@@ -62,11 +49,6 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  // If we don't have real credentials, return null immediately
-  if (isBuildWithoutCredentials) {
-    return null;
-  }
-
   try {
     const { data: post, error } = await supabase
       .from('posts')

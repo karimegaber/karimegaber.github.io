@@ -1,10 +1,19 @@
+import { supabase } from "@/lib/supabase"
 import { BlogClient } from "./blog-client"
 
 // This is required for static export to work with dynamic routes.
-// We must return at least one path to prevent Next.js from throwing "missing generateStaticParams".
-// The 'index' slug is a dummy value. The client-side router will handle real slugs.
 export async function generateStaticParams() {
-  return [{ slug: 'index' }]
+  const { data: posts } = await supabase.from("posts").select("slug")
+
+  if (!posts) {
+    // Return a dummy slug if fetching fails, to prevent breaking the build.
+    // This allows client-side rendering to take over.
+    return [{ slug: "index" }]
+  }
+
+  return posts.map(post => ({
+    slug: post.slug,
+  }))
 }
 
 export default function BlogPostPage() {

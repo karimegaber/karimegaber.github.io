@@ -8,12 +8,4 @@ export const supabase = createClient(supabaseUrl, supabaseKey, {
   auth: {
     persistSession: false,
   },
-  global: {
-    fetch: (url, options) => {
-      // Append timestamp to query parameters to bypass caching
-      const newUrl = new URL(url as string);
-      newUrl.searchParams.append('t', new Date().getTime().toString());
-      return fetch(newUrl.toString(), options);
-    },
-  },
 });
