@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { ArrowDown, Download, MapPin, Mail, Phone, Linkedin } from "lucide-react"
+import { trackEvent } from "@/lib/analytics"
 
 export function Hero() {
   return (
@@ -183,14 +184,14 @@ export function Hero() {
               <a
                 href="mailto:dev.karime.gaber@gmail.com"
                 className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-400"
-                aria-label="Email"
+                aria-label="Email" onClick={() => trackEvent("contact_email_clicks")}
               >
                 <Mail size={14} />
               </a>
               <a
                 href="tel:+971504626400"
                 className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-400"
-                aria-label="Phone Number"
+                aria-label="Phone Number" onClick={() => trackEvent("contact_phone_clicks")}
               >
                 <Phone size={14} />
               </a>
@@ -199,7 +200,7 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-400"
-                aria-label="WhatsApp"
+                aria-label="WhatsApp" onClick={() => trackEvent("contact_whatsapp_clicks")}
               >
                 <svg
                   role="img"
@@ -216,7 +217,7 @@ export function Hero() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-400"
-                aria-label="LinkedIn"
+                aria-label="LinkedIn" onClick={() => trackEvent("contact_linkedin_clicks")}
               >
                 <Linkedin size={14} />
               </a>

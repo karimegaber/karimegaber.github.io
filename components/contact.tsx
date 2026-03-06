@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Send, Mail, Phone, Linkedin, User, MessageSquare, Loader2 } from "lucide-react"
+import { trackEvent } from "@/lib/analytics"
 import emailjs from "@emailjs/browser"
 
 interface ChatMessage {
@@ -110,6 +111,7 @@ export function Contact() {
               <div className="space-y-4">
                 <a
                   href="mailto:dev.karime.gaber@gmail.com"
+                  onClick={() => trackEvent("contact_email_clicks")}
                   className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-blue-400"
                 >
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 bg-slate-800">
@@ -119,6 +121,7 @@ export function Contact() {
                 </a>
                 <a
                   href="tel:+971504626400"
+                  onClick={() => trackEvent("contact_phone_clicks")}
                   className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-blue-400"
                 >
                   <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 bg-slate-800">
@@ -128,6 +131,7 @@ export function Contact() {
                 </a>
                 <a
                   href="https://wa.me/971504626400"
+                  onClick={() => trackEvent("contact_whatsapp_clicks")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-blue-400"
@@ -147,6 +151,7 @@ export function Contact() {
                 </a>
                 <a
                   href="http://linkedin.com/in/karimessamgaber"
+                  onClick={() => trackEvent("contact_linkedin_clicks")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-blue-400"

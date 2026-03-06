@@ -5,14 +5,15 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { trackEvent } from "@/lib/analytics"
 
 const navLinks = [
-  { label: "Stats", href: "/#stats" },
-  { label: "Skills", href: "/#skills" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Experience", href: "/#timeline" },
-  { label: "Contact", href: "/#contact" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "Stats", href: "/#stats", trackingEvent: "nav_stats_clicks" },
+  { label: "Skills", href: "/#skills", trackingEvent: "nav_skills_clicks" },
+  { label: "Projects", href: "/#projects", trackingEvent: "nav_projects_clicks" },
+  { label: "Experience", href: "/#timeline", trackingEvent: "nav_experience_clicks" },
+  { label: "Contact", href: "/#contact", trackingEvent: "nav_contact_clicks" },
+  { label: "Blogs", href: "/blogs", trackingEvent: "nav_blogs_clicks" },
 ]
 
 export function Navbar() {
@@ -26,8 +27,12 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handler)
   }, [])
 
-  const handleScroll = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleScroll = (e: MouseEvent<HTMLAnchorElement>, href: string, trackingEvent?: string) => {
     setMobileOpen(false)
+
+    if (trackingEvent) {
+      trackEvent(trackingEvent);
+    }
 
     // Check if it's a hash link
     if (href.includes('#')) {
@@ -72,7 +77,7 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              onClick={(e) => handleScroll(e, link.href)}
+              onClick={(e) => handleScroll(e, link.href, link.trackingEvent)}
               className="font-mono text-xs uppercase tracking-widest text-slate-400 transition-colors hover:text-blue-400"
             >
               {link.label}
@@ -102,7 +107,7 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => handleScroll(e, link.href)}
+                  onClick={(e) => handleScroll(e, link.href, link.trackingEvent)}
                   className="rounded-md px-3 py-2.5 font-mono text-xs uppercase tracking-widest text-slate-400 transition-colors hover:bg-blue-500/10 hover:text-blue-400"
                 >
                   {link.label}
