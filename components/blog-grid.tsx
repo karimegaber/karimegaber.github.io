@@ -16,27 +16,27 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
           transition={{ duration: 0.5, delay: index * 0.1 }}
         >
           <Link href={`/blogs/${post.slug}`} className="group block h-full">
-            <div className="glass h-full rounded-xl border border-white/10 p-6 transition-all duration-300 hover:border-blue-400/50 hover:bg-white/5">
+            <div className="glass h-full rounded-xl border border-slate-200 dark:border-white/10 p-6 transition-all duration-300 hover:border-blue-400/50 hover:bg-slate-200/30 dark:bg-white/5">
               <div className="mb-4 flex flex-wrap gap-2">
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-400"
+                    className="rounded-full bg-blue-500/10 px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-400"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <h2 className="mb-3 text-xl font-bold text-slate-100 transition-colors group-hover:text-blue-400">
+              <h2 className="mb-3 text-xl font-bold text-slate-800 dark:text-slate-100 transition-colors group-hover:text-blue-600 dark:text-blue-400">
                 {post.title}
               </h2>
 
-              <p className="mb-6 text-sm text-slate-400 line-clamp-3">
+              <p className="mb-6 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400 line-clamp-3">
                 {post.excerpt}
               </p>
 
-              <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4 text-xs text-slate-500">
+              <div className="mt-auto flex items-center justify-between border-t border-white/5 pt-4 text-xs text-slate-400 dark:text-slate-500">
                 <div className="flex items-center gap-4">
                   <div className="flex items-center gap-1.5">
                     <Calendar size={14} />
@@ -48,7 +48,7 @@ export function BlogGrid({ posts }: { posts: BlogPost[] }) {
                   </div>
                 </div>
 
-                <span className="flex items-center gap-1 text-blue-400 opacity-0 transition-opacity group-hover:opacity-100">
+                <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400 opacity-0 transition-opacity group-hover:opacity-100">
                   Read <ArrowRight size={14} />
                 </span>
               </div>

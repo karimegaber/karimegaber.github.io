@@ -151,7 +151,7 @@ function ProjectCard({ project, index, isAlone }: { project: Project; index: num
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-md border border-blue-400/40 bg-blue-500/15 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-blue-300 backdrop-blur-sm"
+                className="rounded-md border border-blue-400/40 bg-blue-500/15 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider text-blue-600 dark:text-blue-300 backdrop-blur-sm"
               >
                 {tag}
               </span>
@@ -159,7 +159,7 @@ function ProjectCard({ project, index, isAlone }: { project: Project; index: num
           </div>
 
           <div className="mb-1.5 flex items-center justify-between gap-3">
-            <h3 className="min-w-0 truncate text-lg font-bold text-white sm:text-xl">{project.title}</h3>
+            <h3 className="min-w-0 truncate text-lg font-bold text-slate-900 dark:text-white sm:text-xl">{project.title}</h3>
 
             {/* App Links */}
             <div className="pointer-events-auto relative z-20 flex shrink-0 items-center gap-2">
@@ -168,7 +168,7 @@ function ProjectCard({ project, index, isAlone }: { project: Project; index: num
                   href={project.androidLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-lg bg-white/10 px-2 py-1.5 text-[10px] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/20 sm:text-xs"
+                  className="flex items-center gap-2 rounded-lg bg-slate-200/50 dark:bg-white/10 px-2 py-1.5 text-[10px] font-medium text-slate-900 dark:text-white backdrop-blur-md transition-colors hover:bg-white/20 sm:text-xs"
                 >
                   <AndroidIcon />
                   Android App
@@ -179,7 +179,7 @@ function ProjectCard({ project, index, isAlone }: { project: Project; index: num
                   href={project.iosLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-lg bg-white/10 px-2 py-1.5 text-[10px] font-medium text-white backdrop-blur-md transition-colors hover:bg-white/20 sm:text-xs"
+                  className="flex items-center gap-2 rounded-lg bg-slate-200/50 dark:bg-white/10 px-2 py-1.5 text-[10px] font-medium text-slate-900 dark:text-white backdrop-blur-md transition-colors hover:bg-white/20 sm:text-xs"
                 >
                   <AppleIcon />
                   iOS App
@@ -187,7 +187,7 @@ function ProjectCard({ project, index, isAlone }: { project: Project; index: num
               )}
             </div>
           </div>
-          <p className="line-clamp-2 max-w-lg text-sm leading-relaxed text-slate-300/80">
+          <p className="line-clamp-2 max-w-lg text-sm leading-relaxed text-slate-600 dark:text-slate-300/80">
             {project.description}
           </p>
         </div>
@@ -216,7 +216,7 @@ export function Projects() {
           transition={{ duration: 0.5 }}
           className="mb-14"
         >
-          <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl lg:text-5xl">
             MY TOP PROJECTS
           </h2>
           <div className="mt-3 h-1 w-16 rounded-full bg-blue-500" />

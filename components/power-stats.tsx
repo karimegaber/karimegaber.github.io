@@ -122,10 +122,10 @@ export function PowerStats() {
           transition={{ duration: 0.5 }}
           className="mb-16 text-center"
         >
-          <span className="font-mono text-xs uppercase tracking-widest text-blue-400">
+          <span className="font-mono text-xs uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Impact in Numbers
           </span>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
             MY HIGHLIGHTS
           </h2>
         </motion.div>
@@ -138,14 +138,14 @@ export function PowerStats() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="group relative overflow-hidden rounded-xl border border-slate-800 bg-slate-900/50 p-6 transition-all hover:border-blue-500/30 hover:bg-slate-900/80"
+              className="group relative overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 p-6 transition-all hover:border-blue-500/30 hover:bg-slate-100 dark:bg-slate-900/80"
             >
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
               <div className="relative z-10">
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 bg-slate-800 text-blue-400 transition-colors group-hover:border-blue-500/30 group-hover:bg-blue-500/10">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-blue-600 dark:text-blue-400 transition-colors group-hover:border-blue-500/30 group-hover:bg-blue-500/10">
                   {stat.icon}
                 </div>
-                <div className="mb-1 text-2xl font-bold text-white lg:text-xl xl:text-2xl">
+                <div className="mb-1 text-2xl font-bold text-slate-900 dark:text-white lg:text-xl xl:text-2xl">
                   {stat.numericTarget !== undefined ? (
                     <AnimatedCounter
                       target={stat.numericTarget}
@@ -157,10 +157,10 @@ export function PowerStats() {
                     <span className="text-lg leading-tight">{stat.value}</span>
                   )}
                 </div>
-                <div className="mb-2 font-mono text-xs font-medium uppercase tracking-wider text-blue-400">
+                <div className="mb-2 font-mono text-xs font-medium uppercase tracking-wider text-blue-600 dark:text-blue-400">
                   {stat.label}
                 </div>
-                <p className="text-xs leading-relaxed text-slate-500">
+                <p className="text-xs leading-relaxed text-slate-400 dark:text-slate-500">
                   {stat.description}
                 </p>
               </div>

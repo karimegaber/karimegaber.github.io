@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { RouteHandler } from "@/components/route-handler";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
@@ -53,11 +54,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="font-sans antialiased bg-[#080c1a] text-slate-100 overflow-x-hidden">
-        <Suspense fallback={null}>
-          <RouteHandler />
-        </Suspense>
-        {children}
+      <body className="font-sans antialiased bg-[#080c1a] text-slate-800 dark:text-slate-100 overflow-x-hidden">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
+          <Suspense fallback={null}>
+            <RouteHandler />
+          </Suspense>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
