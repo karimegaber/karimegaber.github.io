@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { trackEvent } from "@/lib/analytics"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const navLinks = [
   { label: "Stats", href: "/#stats", trackingEvent: "nav_stats_clicks" },
@@ -67,8 +67,8 @@ export function Navbar() {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-center">
-          <span className="font-mono text-sm font-bold tracking-widest text-white">
-            <span className="text-blue-400">KARIM</span> GABER
+          <span className="font-mono text-sm font-bold tracking-widest text-slate-900 dark:text-white">
+            <span className="text-blue-600 dark:text-blue-400">KARIM</span> GABER
           </span>
         </Link>
 
@@ -77,21 +77,26 @@ export function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              onClick={(e) => handleScroll(e, link.href, link.trackingEvent)}
-              className="font-mono text-xs uppercase tracking-widest text-slate-400 transition-colors hover:text-blue-400"
+              onClick={(e) => handleScroll(e, link.href)}
+              className="font-mono text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 transition-colors hover:text-blue-600 dark:text-blue-400"
             >
               {link.label}
             </Link>
           ))}
+
+          <ThemeToggle />
         </div>
 
-        <button
+        <div className="flex items-center gap-4 md:hidden">
+          <ThemeToggle />
+          <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="flex h-9 w-9 items-center justify-center rounded-md border border-slate-700 text-slate-400 md:hidden"
+          className="flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 md:hidden"
           aria-label="Toggle menu"
         >
           {mobileOpen ? <X size={18} /> : <Menu size={18} />}
         </button>
+        </div>
       </div>
 
       <AnimatePresence>
@@ -107,8 +112,8 @@ export function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => handleScroll(e, link.href, link.trackingEvent)}
-                  className="rounded-md px-3 py-2.5 font-mono text-xs uppercase tracking-widest text-slate-400 transition-colors hover:bg-blue-500/10 hover:text-blue-400"
+                  onClick={(e) => handleScroll(e, link.href)}
+                  className="rounded-md px-3 py-2.5 font-mono text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 transition-colors hover:bg-blue-500/10 hover:text-blue-600 dark:text-blue-400"
                 >
                   {link.label}
                 </Link>

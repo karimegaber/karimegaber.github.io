@@ -35,7 +35,7 @@ export function Hero() {
             <motion.div
               animate={{ y: [-4, 4, -4] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-4 top-8 flex h-8 w-8 items-center justify-center rounded-full border border-blue-500/20 bg-slate-900/80 backdrop-blur-sm"
+              className="absolute -right-4 top-8 flex h-8 w-8 items-center justify-center rounded-full border border-blue-500/20 bg-slate-100 dark:bg-slate-900/80 backdrop-blur-sm"
             >
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
             </motion.div>
@@ -43,13 +43,13 @@ export function Hero() {
             <motion.div
               animate={{ y: [3, -5, 3] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -left-5 bottom-16 rounded-full border border-blue-500/15 bg-slate-900/80 px-3 py-1.5 backdrop-blur-sm"
+              className="absolute -left-5 bottom-16 rounded-full border border-blue-500/15 bg-slate-100 dark:bg-slate-900/80 px-3 py-1.5 backdrop-blur-sm"
             >
-              <span className="font-mono text-[10px] text-blue-400">{'<Flutter />'}</span>
+              <span className="font-mono text-[10px] text-blue-600 dark:text-blue-400">{'<Flutter />'}</span>
             </motion.div>
 
             {/* Image container */}
-            <div className="relative h-[440px] w-[340px] overflow-hidden rounded-2xl border border-slate-700/60 lg:h-[480px] lg:w-[380px]">
+            <div className="relative h-[440px] w-[340px] overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-700/60 lg:h-[480px] lg:w-[380px]">
               <Image
                 src="/images/karim-profile.png"
                 alt="Karim Gaber - Senior Flutter Developer"
@@ -84,7 +84,7 @@ export function Hero() {
             <motion.div
               animate={{ y: [-4, 4, -4] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -right-2 top-6 flex h-7 w-7 items-center justify-center rounded-full border border-blue-500/20 bg-slate-900/80 backdrop-blur-sm"
+              className="absolute -right-2 top-6 flex h-7 w-7 items-center justify-center rounded-full border border-blue-500/20 bg-slate-100 dark:bg-slate-900/80 backdrop-blur-sm"
             >
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
             </motion.div>
@@ -92,13 +92,13 @@ export function Hero() {
             <motion.div
               animate={{ y: [3, -5, 3] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -left-2 bottom-10 rounded-full border border-blue-500/15 bg-slate-900/80 px-2.5 py-1 backdrop-blur-sm"
+              className="absolute -left-2 bottom-10 rounded-full border border-blue-500/15 bg-slate-100 dark:bg-slate-900/80 px-2.5 py-1 backdrop-blur-sm"
             >
-              <span className="font-mono text-[10px] text-blue-400">{'<Flutter />'}</span>
+              <span className="font-mono text-[10px] text-blue-600 dark:text-blue-400">{'<Flutter />'}</span>
             </motion.div>
 
             {/* Image container */}
-            <div className="relative aspect-video w-full max-h-[30vh] overflow-hidden rounded-2xl border border-slate-700/60">
+            <div className="relative aspect-video w-full max-h-[30vh] overflow-hidden rounded-2xl border border-slate-300 dark:border-slate-700/60">
               <Image
                 src="/images/karim-profile.png"
                 alt="Karim Gaber - Senior Flutter Developer"
@@ -122,9 +122,9 @@ export function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="mb-2 text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl"
+              className="mb-2 text-3xl font-bold uppercase tracking-tight text-slate-900 dark:text-white sm:text-4xl md:text-5xl lg:text-6xl"
             >
-              <span className="text-blue-400">KARIM</span> ESSAM GABER
+              <span className="text-blue-600 dark:text-blue-400">KARIM</span> ESSAM GABER
             </motion.h1>
 
             {/* Status badge */}
@@ -138,7 +138,7 @@ export function Hero() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 md:h-2.5 md:w-2.5 rounded-full bg-blue-400" />
               </span>
-              <span className="font-mono font-medium text-blue-100 text-sm sm:text-base md:text-lg">Senior Flutter Developer</span>
+              <span className="font-mono font-medium text-blue-800 dark:text-blue-100 text-sm sm:text-base md:text-lg">Senior Flutter Developer</span>
             </motion.div>
 
             {/* Main heading */}
@@ -146,10 +146,10 @@ export function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
-              className="max-w-2xl text-balance text-xl font-bold leading-tight tracking-tight text-white sm:text-2xl md:text-3xl lg:text-4xl"
+              className="max-w-2xl text-balance text-xl font-bold leading-tight tracking-tight text-slate-900 dark:text-white sm:text-2xl md:text-3xl lg:text-4xl"
             >
               Engineering High-Performance Mobile Ecosystems{" "}
-              <span className="text-blue-400">for Millions</span>
+              <span className="text-blue-600 dark:text-blue-400">for Millions</span>
             </motion.h1>
 
             {/* Sub-headline */}
@@ -157,7 +157,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.6 }}
-              className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-slate-400 sm:text-lg"
+              className="mt-5 max-w-xl text-pretty text-base leading-relaxed text-slate-400 dark:text-slate-500 dark:text-slate-400 sm:text-lg"
             >
               Senior Flutter Developer with 4+ years of experience building
               market-leading AI applications and government-grade platforms.
@@ -168,7 +168,7 @@ export function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.75 }}
-              className="mt-4 flex items-center gap-1.5 text-slate-500"
+              className="mt-4 flex items-center gap-1.5 text-slate-400 dark:text-slate-500"
             >
               <MapPin size={14} />
               <span className="font-mono text-xs">Abu Dhabi, UAE</span>
@@ -183,15 +183,15 @@ export function Hero() {
             >
               <a
                 href="mailto:dev.karime.gaber@gmail.com"
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-400"
-                aria-label="Email" onClick={() => trackEvent("contact_email_clicks")}
+                className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-600 dark:text-blue-400"
+                aria-label="Email"
               >
                 <Mail size={14} />
               </a>
               <a
                 href="tel:+971504626400"
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-400"
-                aria-label="Phone Number" onClick={() => trackEvent("contact_phone_clicks")}
+                className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-600 dark:text-blue-400"
+                aria-label="Phone Number"
               >
                 <Phone size={14} />
               </a>
@@ -199,8 +199,8 @@ export function Hero() {
                 href="https://wa.me/971504626400"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-400"
-                aria-label="WhatsApp" onClick={() => trackEvent("contact_whatsapp_clicks")}
+                className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-600 dark:text-blue-400"
+                aria-label="WhatsApp"
               >
                 <svg
                   role="img"
@@ -216,8 +216,8 @@ export function Hero() {
                 href="http://linkedin.com/in/karimessamgaber"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-800 text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-400"
-                aria-label="LinkedIn" onClick={() => trackEvent("contact_linkedin_clicks")}
+                className="flex h-8 w-8 items-center justify-center rounded-md border border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-500 transition-all hover:border-blue-500/30 hover:text-blue-600 dark:text-blue-400"
+                aria-label="LinkedIn"
               >
                 <Linkedin size={14} />
               </a>
@@ -232,7 +232,7 @@ export function Hero() {
             >
               <a
                 href="#projects"
-                className="group flex items-center gap-2 rounded-lg bg-blue-500 px-6 py-3 font-mono text-sm font-medium text-white transition-all hover:bg-blue-400 hover:shadow-lg hover:shadow-blue-500/20"
+                className="group flex items-center gap-2 rounded-lg bg-blue-500 px-6 py-3 font-mono text-sm font-medium text-slate-900 dark:text-white transition-all hover:bg-blue-400 hover:shadow-lg hover:shadow-blue-500/20"
               >
                 View My Top Projects
                 <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
@@ -240,7 +240,7 @@ export function Hero() {
               <a
                 href="pdf/Karim-Gaber-CV.pdf"
                 download
-                className="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/50 px-6 py-3 font-mono text-sm text-slate-300 transition-all hover:border-blue-500/30 hover:bg-slate-800 hover:text-white"
+                className="flex items-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/50 px-6 py-3 font-mono text-sm text-slate-600 dark:text-slate-300 transition-all hover:border-blue-500/30 hover:bg-white dark:bg-slate-800 hover:text-slate-900 dark:text-white"
               >
                 <Download size={16} />
                 Download CV
@@ -260,7 +260,7 @@ export function Hero() {
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex h-8 w-5 items-start justify-center rounded-full border border-slate-700 p-1"
+          className="flex h-8 w-5 items-start justify-center rounded-full border border-slate-300 dark:border-slate-700 p-1"
         >
           <div className="h-1.5 w-1 rounded-full bg-blue-400" />
         </motion.div>

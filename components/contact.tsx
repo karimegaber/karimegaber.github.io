@@ -89,10 +89,10 @@ export function Contact() {
           transition={{ duration: 0.5 }}
           className="mb-16 text-center"
         >
-          <span className="font-mono text-xs uppercase tracking-widest text-blue-400">
+          <span className="font-mono text-xs uppercase tracking-widest text-blue-600 dark:text-blue-400">
             Get in Touch
           </span>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
             {"Let's Connect"}
           </h2>
         </motion.div>
@@ -106,25 +106,23 @@ export function Contact() {
             transition={{ duration: 0.5 }}
             className="space-y-6 lg:col-span-2"
           >
-            <div className="rounded-xl border border-slate-800 bg-slate-900/50 p-6">
-              <h3 className="mb-4 text-base font-semibold text-white">Contact Details</h3>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 p-6">
+              <h3 className="mb-4 text-base font-semibold text-slate-900 dark:text-white">Contact Details</h3>
               <div className="space-y-4">
                 <a
                   href="mailto:dev.karime.gaber@gmail.com"
-                  onClick={() => trackEvent("contact_email_clicks")}
-                  className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-blue-400"
+                  className="flex items-center gap-3 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400 transition-colors hover:text-blue-600 dark:text-blue-400"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 bg-slate-800">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800">
                     <Mail size={16} />
                   </div>
                   dev.karime.gaber@gmail.com
                 </a>
                 <a
                   href="tel:+971504626400"
-                  onClick={() => trackEvent("contact_phone_clicks")}
-                  className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-blue-400"
+                  className="flex items-center gap-3 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400 transition-colors hover:text-blue-600 dark:text-blue-400"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 bg-slate-800">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800">
                     <Phone size={16} />
                   </div>
                   +971 50 462 6400
@@ -134,9 +132,9 @@ export function Contact() {
                   onClick={() => trackEvent("contact_whatsapp_clicks")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-blue-400"
+                  className="flex items-center gap-3 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400 transition-colors hover:text-blue-600 dark:text-blue-400"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 bg-slate-800">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800">
                     <svg
                       role="img"
                       viewBox="0 0 24 24"
@@ -154,9 +152,9 @@ export function Contact() {
                   onClick={() => trackEvent("contact_linkedin_clicks")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 text-sm text-slate-400 transition-colors hover:text-blue-400"
+                  className="flex items-center gap-3 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400 transition-colors hover:text-blue-600 dark:text-blue-400"
                 >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-700 bg-slate-800">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800">
                     <Linkedin size={16} />
                   </div>
                   Karim Essam Gaber
@@ -171,10 +169,10 @@ export function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="flex flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-900/50 lg:col-span-3"
+            className="flex flex-col overflow-hidden rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/50 lg:col-span-3"
           >
             {/* Chat header */}
-            <div className="flex items-center gap-3 border-b border-slate-800 px-5 py-3">
+            <div className="flex items-center gap-3 border-b border-slate-200 dark:border-slate-800 px-5 py-3">
               <div className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full border border-blue-500/30 bg-blue-500/10">
                 <Image
                   src="/images/website-icon.png"
@@ -184,8 +182,8 @@ export function Contact() {
                 />
               </div>
               <div>
-                <p className="text-sm font-medium text-white">Karim Gaber</p>
-                <p className="flex items-center gap-1 text-xs text-slate-500">
+                <p className="text-sm font-medium text-slate-900 dark:text-white">Karim Gaber</p>
+                <p className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
                   Online
                 </p>
@@ -206,8 +204,8 @@ export function Contact() {
                   <div
                     className={`max-w-[80%] rounded-xl px-4 py-2.5 text-sm leading-relaxed ${
                       msg.from === "user"
-                        ? "bg-blue-500 text-white"
-                        : "border border-slate-800 bg-slate-800/60 text-slate-300"
+                        ? "bg-blue-500 text-slate-900 dark:text-white"
+                        : "border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/60 text-slate-600 dark:text-slate-300"
                     }`}
                   >
                     {msg.text}
@@ -217,7 +215,7 @@ export function Contact() {
             </div>
 
             {/* Input form */}
-            <form onSubmit={handleSubmit} className="border-t border-slate-800 p-4">
+            <form onSubmit={handleSubmit} className="border-t border-slate-200 dark:border-slate-800 p-4">
               {!sent && (
                 <div className="mb-3 space-y-3">
                   <div className="grid grid-cols-2 gap-3">
@@ -228,7 +226,7 @@ export function Contact() {
                         placeholder="Your name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-slate-800/50 py-2 pl-9 pr-3 text-sm text-white placeholder-slate-600 outline-none transition-colors focus:border-blue-500/50"
+                        className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/50 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-white placeholder-slate-600 outline-none transition-colors focus:border-blue-500/50"
                         required
                         disabled={isLoading}
                       />
@@ -240,7 +238,7 @@ export function Contact() {
                         placeholder="Your email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full rounded-lg border border-slate-800 bg-slate-800/50 py-2 pl-9 pr-3 text-sm text-white placeholder-slate-600 outline-none transition-colors focus:border-blue-500/50"
+                        className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/50 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-white placeholder-slate-600 outline-none transition-colors focus:border-blue-500/50"
                         required
                         disabled={isLoading}
                       />
@@ -261,7 +259,7 @@ export function Contact() {
                       placeholder="WhatsApp (Optional)"
                       value={whatsapp}
                       onChange={(e) => setWhatsapp(e.target.value)}
-                      className="w-full rounded-lg border border-slate-800 bg-slate-800/50 py-2 pl-9 pr-3 text-sm text-white placeholder-slate-600 outline-none transition-colors focus:border-blue-500/50"
+                      className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/50 py-2 pl-9 pr-3 text-sm text-slate-900 dark:text-white placeholder-slate-600 outline-none transition-colors focus:border-blue-500/50"
                       disabled={isLoading}
                     />
                   </div>
@@ -276,14 +274,14 @@ export function Contact() {
                     setMessage(e.target.value)
                     if (sent) setSent(false)
                   }}
-                  className="w-full rounded-lg border border-slate-800 bg-slate-800/50 px-4 py-2 text-sm text-white placeholder-slate-600 outline-none transition-colors focus:border-blue-500/50"
+                  className="w-full rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800/50 px-4 py-2 text-sm text-slate-900 dark:text-white placeholder-slate-600 outline-none transition-colors focus:border-blue-500/50"
                   required
                   disabled={isLoading}
                 />
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-500 py-2.5 text-sm font-medium text-white transition-colors hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-blue-500 py-2.5 text-sm font-medium text-slate-900 dark:text-white transition-colors hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Send message"
                 >
                   {isLoading ? (
