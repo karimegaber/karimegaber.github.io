@@ -9,6 +9,7 @@ import remarkGfm from "remark-gfm"
 import rehypeHighlight from "rehype-highlight"
 import { getBlogPostBySlug, BlogPost } from "@/lib/blogs"
 import { Navbar } from "@/components/navbar"
+import { trackBlogView } from "@/lib/analytics"
 import { Footer } from "@/components/footer"
 import "highlight.js/styles/github-dark.css"
 
@@ -28,6 +29,7 @@ export function BlogClient() {
         const data = await getBlogPostBySlug(slug)
         if (data) {
           setPost(data)
+          trackBlogView(slug)
         } else {
           setError(true)
         }

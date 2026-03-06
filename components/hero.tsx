@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { ArrowDown, Download, MapPin, Mail, Phone, Linkedin } from "lucide-react"
+import { trackEvent } from "@/lib/analytics"
 
 export function Hero() {
   return (

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import { Send, Mail, Phone, Linkedin, User, MessageSquare, Loader2 } from "lucide-react"
+import { trackEvent } from "@/lib/analytics"
 import emailjs from "@emailjs/browser"
 
 interface ChatMessage {
@@ -128,6 +129,7 @@ export function Contact() {
                 </a>
                 <a
                   href="https://wa.me/971504626400"
+                  onClick={() => trackEvent("contact_whatsapp_clicks")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400 transition-colors hover:text-blue-600 dark:text-blue-400"
@@ -147,6 +149,7 @@ export function Contact() {
                 </a>
                 <a
                   href="http://linkedin.com/in/karimessamgaber"
+                  onClick={() => trackEvent("contact_linkedin_clicks")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-sm text-slate-400 dark:text-slate-500 dark:text-slate-400 transition-colors hover:text-blue-600 dark:text-blue-400"

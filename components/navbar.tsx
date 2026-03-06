@@ -8,12 +8,12 @@ import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 const navLinks = [
-  { label: "Stats", href: "/#stats" },
-  { label: "Skills", href: "/#skills" },
-  { label: "Projects", href: "/#projects" },
-  { label: "Experience", href: "/#timeline" },
-  { label: "Contact", href: "/#contact" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "Stats", href: "/#stats", trackingEvent: "nav_stats_clicks" },
+  { label: "Skills", href: "/#skills", trackingEvent: "nav_skills_clicks" },
+  { label: "Projects", href: "/#projects", trackingEvent: "nav_projects_clicks" },
+  { label: "Experience", href: "/#timeline", trackingEvent: "nav_experience_clicks" },
+  { label: "Contact", href: "/#contact", trackingEvent: "nav_contact_clicks" },
+  { label: "Blogs", href: "/blogs", trackingEvent: "nav_blogs_clicks" },
 ]
 
 export function Navbar() {
@@ -27,8 +27,12 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handler)
   }, [])
 
-  const handleScroll = (e: MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleScroll = (e: MouseEvent<HTMLAnchorElement>, href: string, trackingEvent?: string) => {
     setMobileOpen(false)
+
+    if (trackingEvent) {
+      trackEvent(trackingEvent);
+    }
 
     // Check if it's a hash link
     if (href.includes('#')) {
