@@ -4,8 +4,11 @@ import { motion } from "framer-motion"
 import Image from "next/image"
 import { ArrowDown, Download, MapPin, Mail, Phone, Linkedin } from "lucide-react"
 import { trackEvent } from "@/lib/analytics"
+import { useChat } from "@/components/chat-context"
 
 export function Hero() {
+  const { openChat } = useChat()
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden">
       {/* Background elements */}
@@ -230,13 +233,25 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.8 }}
               className="mt-8 flex flex-col items-center gap-4 sm:flex-row"
             >
-              <a
-                href="#projects"
-                className="group flex items-center gap-2 rounded-lg bg-blue-500 px-6 py-3 font-mono text-sm font-medium text-slate-900 dark:text-white transition-all hover:bg-blue-400 hover:shadow-lg hover:shadow-blue-500/20"
+              <button
+                onClick={openChat}
+                className="group relative flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 font-mono text-sm font-medium text-white transition-all hover:shadow-lg hover:shadow-blue-500/20 overflow-hidden"
               >
-                View My Top Projects
-                <ArrowDown size={16} className="transition-transform group-hover:translate-y-0.5" />
-              </a>
+                {/* Animated conic gradient border background */}
+                <span className="absolute inset-[-100%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0f172a_0%,#3b82f6_50%,#0f172a_100%)]" />
+
+                {/* Inner button background */}
+                <span className="absolute inset-[1px] rounded-lg bg-slate-900 transition-colors group-hover:bg-slate-800" />
+
+                {/* Button content */}
+                <span className="relative z-10 flex items-center gap-2">
+                  Talk to my AI Twin
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
+                  </span>
+                </span>
+              </button>
               <a
                 href="pdf/Karim-Gaber-CV.pdf"
                 download
