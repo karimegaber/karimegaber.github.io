@@ -2,9 +2,11 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageCircle, X, Send, Bot, User } from "lucide-react"
+import { X, Send, Bot, User } from "lucide-react"
 import { useChat } from "@/components/chat-context"
-import { trackEvent } from "@/lib/analytics"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface Message {
   id: string
@@ -14,6 +16,7 @@ interface Message {
 
 export function ChatInterface() {
   const { isOpen, setIsOpen } = useChat()
+  const isMobile = useIsMobile()
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -30,9 +33,24 @@ export function ChatInterface() {
   }
 
   useEffect(() => {
+    const body = document.body
+    const originalOverflow = window.getComputedStyle(body).overflow
+
+    if (isMobile && isOpen) {
+      body.style.overflow = 'hidden'
+    } else {
+      body.style.overflow = originalOverflow
+    }
+
+    return () => {
+      body.style.overflow = originalOverflow
+    }
+  }, [isOpen, isMobile])
+
+  useEffect(() => {
     scrollToBottom()
   }, [messages, isLoading])
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!input.trim() || isLoading) return
@@ -46,7 +64,6 @@ export function ChatInterface() {
 
     setMessages(prev => [...prev, userMsg])
     setInput("")
-    trackEvent("ai_chat_messages")
     setIsLoading(true)
 
     try {
@@ -57,7 +74,7 @@ export function ChatInterface() {
           "Authorization": `Bearer 8xF7806sb3OwDZOAEgLXbNZmC5PB2GmG`
         },
         body: JSON.stringify({
-          agent_id: "ag\\019cc748e87670b39388733f6a2500a9",
+          agent_id: "ag_019cc748e87670b39388733f6a2500a9",
           inputs: [{ role: "user", "content": currentInput }]
         })
       })
@@ -68,10 +85,12 @@ export function ChatInterface() {
 
       const data = await response.json()
 
+      const messageOutput = data.outputs?.find((o: any) => o.type === 'message.output' && o.role === 'assistant');
+
       const aiMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "ai",
-        content: data.outputs?.[0]?.content || "No response"
+        content: messageOutput?.content || "No response"
       }
 
       setMessages(prev => [...prev, aiMsg])
@@ -101,19 +120,28 @@ export function ChatInterface() {
         aria-label="Open Chat"
       >
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-40"></span>
-        <MessageCircle size={24} />
+        <Bot size={24} />
       </motion.button>
 
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ y: 100, opacity: 0, scale: 0.95 }}
-            animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={{ y: 100, opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3, type: "spring", bounce: 0.3 }}
-            className="fixed bottom-6 right-6 z-50 flex h-[500px] w-[350px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900 sm:w-[400px]"
-          >
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm dark:bg-black/40 sm:hidden"
+              onClick={() => setIsOpen(false)}
+            />
+            <motion.div
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: "100%", opacity: 0 }}
+              transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
+              className="fixed bottom-0 left-0 right-0 z-50 flex h-[calc(100%-2rem)] flex-col overflow-hidden rounded-t-2xl border-t border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900 sm:bottom-6 sm:left-auto sm:right-6 sm:h-[600px] sm:max-h-[calc(100vh-4rem)] sm:w-[400px] sm:rounded-2xl sm:border"
+            >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/50">
               <div className="flex items-center gap-2">
@@ -165,7 +193,26 @@ export function ChatInterface() {
                             : "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 rounded-tl-none"
                         }`}
                       >
-                        {msg.content}
+                        {msg.role === 'ai' ? (
+                          <div className="prose prose-sm dark:prose-invert max-w-none">
+                            <ReactMarkdown
+                              remarkPlugins={[remarkGfm]}
+                              components={{
+                                a: ({ node, ...props }) => (
+                                  <a
+                                    {...props}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  />
+                                ),
+                              }}
+                            >
+                              {msg.content}
+                            </ReactMarkdown>
+                          </div>
+                        ) : (
+                          msg.content
+                        )}
                       </div>
                     </div>
                   </div>
@@ -209,6 +256,7 @@ export function ChatInterface() {
               </form>
             </div>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

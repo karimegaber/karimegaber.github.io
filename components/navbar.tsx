@@ -6,6 +6,7 @@ import { Menu, X } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/theme-toggle"
+import { trackEvent } from "@/lib/analytics"
 
 const navLinks = [
   { label: "Stats", href: "/#stats", trackingEvent: "nav_stats_clicks" },
@@ -84,11 +85,11 @@ export function Navbar() {
             </Link>
           ))}
 
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </div>
 
         <div className="flex items-center gap-4 md:hidden">
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
           <button
           onClick={() => setMobileOpen(!mobileOpen)}
           className="flex h-9 w-9 items-center justify-center rounded-md border border-slate-300 dark:border-slate-700 text-slate-500 dark:text-slate-400 md:hidden"
