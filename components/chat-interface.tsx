@@ -55,7 +55,7 @@ export function ChatInterface() {
           "Authorization": `Bearer 8xF7806sb3OwDZOAEgLXbNZmC5PB2GmG`
         },
         body: JSON.stringify({
-          agent_id: "ag\\019cc748e87670b39388733f6a2500a9",
+          agent_id: "ag_019cc748e87670b39388733f6a2500a9",
           inputs: [{ role: "user", "content": currentInput }]
         })
       })
