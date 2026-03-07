@@ -31,6 +31,19 @@ export function ChatInterface() {
   }
 
   useEffect(() => {
+    const originalOverflow = window.getComputedStyle(document.body).overflow
+    if (isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = originalOverflow
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow
+    }
+  }, [isOpen])
+
+  useEffect(() => {
     scrollToBottom()
   }, [messages, isLoading])
 
@@ -103,7 +116,7 @@ export function ChatInterface() {
         aria-label="Open Chat"
       >
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-40"></span>
-        <MessageCircle size={24} />
+        <Bot size={24} />
       </motion.button>
 
       {/* Chat Window */}
