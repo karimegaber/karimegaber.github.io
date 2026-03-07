@@ -2,10 +2,11 @@
 
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageCircle, X, Send, Bot, User } from "lucide-react"
+import { X, Send, Bot, User } from "lucide-react"
 import { useChat } from "@/components/chat-context"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 interface Message {
   id: string
@@ -15,6 +16,7 @@ interface Message {
 
 export function ChatInterface() {
   const { isOpen, setIsOpen } = useChat()
+  const isMobile = useIsMobile()
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -31,22 +33,24 @@ export function ChatInterface() {
   }
 
   useEffect(() => {
-    const originalOverflow = window.getComputedStyle(document.body).overflow
-    if (isOpen) {
-      document.body.style.overflow = "hidden"
+    const body = document.body
+    const originalOverflow = window.getComputedStyle(body).overflow
+
+    if (isMobile && isOpen) {
+      body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = originalOverflow
+      body.style.overflow = originalOverflow
     }
 
     return () => {
-      document.body.style.overflow = originalOverflow
+      body.style.overflow = originalOverflow
     }
-  }, [isOpen])
+  }, [isOpen, isMobile])
 
   useEffect(() => {
     scrollToBottom()
   }, [messages, isLoading])
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!input.trim() || isLoading) return
@@ -122,13 +126,22 @@ export function ChatInterface() {
       {/* Chat Window */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ y: 100, opacity: 0, scale: 0.95 }}
-            animate={{ y: 0, opacity: 1, scale: 1 }}
-            exit={{ y: 100, opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3, type: "spring", bounce: 0.3 }}
-            className="fixed bottom-6 right-6 z-50 flex h-[500px] w-[350px] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900 sm:w-[400px]"
-          >
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm dark:bg-black/40 sm:hidden"
+              onClick={() => setIsOpen(false)}
+            />
+            <motion.div
+              initial={{ y: "100%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: "100%", opacity: 0 }}
+              transition={{ duration: 0.4, type: "spring", bounce: 0.2 }}
+              className="fixed bottom-0 left-0 right-0 z-50 flex h-[calc(100%-2rem)] flex-col overflow-hidden rounded-t-2xl border-t border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900 sm:bottom-6 sm:left-auto sm:right-6 sm:h-[600px] sm:max-h-[calc(100vh-4rem)] sm:w-[400px] sm:rounded-2xl sm:border"
+            >
             {/* Header */}
             <div className="flex items-center justify-between border-b border-slate-200 bg-slate-50 px-4 py-3 dark:border-slate-800 dark:bg-slate-900/50">
               <div className="flex items-center gap-2">
@@ -243,6 +256,7 @@ export function ChatInterface() {
               </form>
             </div>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
