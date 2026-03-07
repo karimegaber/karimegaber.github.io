@@ -7,6 +7,7 @@ import { useChat } from "@/components/chat-context"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { trackAiChatMessage } from "@/lib/analytics"
 
 interface Message {
   id: string
@@ -61,6 +62,8 @@ export function ChatInterface() {
       role: "user",
       content: currentInput
     }
+
+    trackAiChatMessage();
 
     setMessages(prev => [...prev, userMsg])
     setInput("")

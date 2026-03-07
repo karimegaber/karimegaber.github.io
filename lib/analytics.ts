@@ -21,3 +21,7 @@ export const trackBlogView = async (blogSlug: string) => {
     console.error('Failed to track blog view:', blogSlug, error);
   }
 };
+
+export const trackAiChatMessage = () => {
+  return trackEvent('ai_chat_messages');
+};
