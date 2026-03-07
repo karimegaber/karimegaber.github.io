@@ -7,7 +7,7 @@ import { useChat } from "@/components/chat-context"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { useIsMobile } from "@/hooks/use-mobile"
-import { trackAiChatMessage } from "@/lib/analytics"
+import { trackAiChatMessage, saveAiChatRecord } from "@/lib/analytics"
 
 interface Message {
   id: string
@@ -57,6 +57,16 @@ export function ChatInterface() {
     if (!input.trim() || isLoading) return
 
     const currentInput = input.trim()
+    let platform = "Desktop";
+    if (typeof window !== "undefined") {
+      const ua = navigator.userAgent;
+      if (/android/i.test(ua)) {
+        platform = "Android";
+      } else if (/iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+        platform = "iOS";
+      }
+    }
+
     const userMsg: Message = {
       id: Date.now().toString(),
       role: "user",
@@ -97,6 +107,10 @@ export function ChatInterface() {
       }
 
       setMessages(prev => [...prev, aiMsg])
+
+      if (aiMsg.content && aiMsg.content !== "No response") {
+        saveAiChatRecord(currentInput, aiMsg.content, platform);
+      }
     } catch (error) {
       console.error("Chat error:", error)
       const errorMsg: Message = {

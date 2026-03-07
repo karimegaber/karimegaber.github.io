@@ -25,3 +25,18 @@ export const trackBlogView = async (blogSlug: string) => {
 export const trackAiChatMessage = () => {
   return trackEvent('ai_chat_messages');
 };
+
+export const saveAiChatRecord = async (userMessage: string, aiMessage: string, platform: string) => {
+  try {
+    const { error } = await supabase.from('ai_chats').insert({
+      user_message: userMessage,
+      ai_message: aiMessage,
+      platform: platform
+    });
+    if (error) {
+      console.error('Failed to save AI chat record:', error);
+    }
+  } catch (error) {
+    console.error('Failed to save AI chat record:', error);
+  }
+};
