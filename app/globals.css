@@ -79,6 +79,14 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  .prose a {
+    @apply text-blue-500 hover:underline;
+  }
+  
+  .dark .prose a {
+    @apply text-blue-400;
+  }
 }
 
 /* Custom glassmorphism utilities */
@@ -112,7 +120,7 @@
 }
 
 .glow-blue-strong {
-  box-shadow: 0 0 30px rgba(59, 130, 246, 0.25), 0 0 80px rgba(59, 130, 246, 0.1);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.25), 0 0 80px rgba(59, 130, 246, .1);
 }
 
 /* Grid background pattern */

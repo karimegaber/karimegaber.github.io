@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { MessageCircle, X, Send, Bot, User } from "lucide-react"
 import { useChat } from "@/components/chat-context"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 
 interface Message {
   id: string
@@ -66,10 +68,12 @@ export function ChatInterface() {
 
       const data = await response.json()
 
+      const messageOutput = data.outputs?.find((o: any) => o.type === 'message.output' && o.role === 'assistant');
+
       const aiMsg: Message = {
         id: (Date.now() + 1).toString(),
         role: "ai",
-        content: data.choices?.[0]?.message?.content || "No response"
+        content: messageOutput?.content || "No response"
       }
 
       setMessages(prev => [...prev, aiMsg])
@@ -163,7 +167,26 @@ export function ChatInterface() {
                             : "bg-slate-100 text-slate-800 dark:bg-slate-800 dark:text-slate-200 rounded-tl-none"
                         }`}
                       >
-                        {msg.content}
+                        {msg.role === 'ai' ? (
+                          <div className="prose prose-sm dark:prose-invert max-w-none">
+                            <ReactMarkdown
+                              remarkPlugins={[remarkGfm]}
+                              components={{
+                                a: ({ node, ...props }) => (
+                                  <a
+                                    {...props}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                  />
+                                ),
+                              }}
+                            >
+                              {msg.content}
+                            </ReactMarkdown>
+                          </div>
+                        ) : (
+                          msg.content
+                        )}
                       </div>
                     </div>
                   </div>
